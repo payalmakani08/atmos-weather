@@ -2,421 +2,705 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Forecast | Atmos Weather</title>
 
-    <link rel="stylesheet"
-        href="css/style.css">
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <canvas id="weather3D"></canvas>
+<!-- 3D WEATHER BACKGROUND -->
+<canvas id="weather3D"></canvas>
 
+<!-- NAVBAR -->
+<nav class="navbar">
 
-    <!-- NAVBAR -->
+    <a href="index.html" class="logo">
+        🌤️ ATMOS
+    </a>
 
-    <nav class="navbar">
+    <div class="nav-links">
 
-        <a href="index.html"
-            class="logo">
-            🌤️ ATMOS
+        <a href="index.html">Home</a>
+
+        <a href="forecast.html">
+            Forecast
         </a>
 
-        <div class="nav-links">
+        <a href="favorites.html">
+            Favorites
+        </a>
 
-            <a href="index.html">
-                Home
-            </a>
+        <a href="about.html">
+            About
+        </a>
 
-            <a href="forecast.html">
-                Forecast
-            </a>
+        <a href="settings.html">
+            Settings
+        </a>
 
-            <a href="favorites.html">
-                Favorites
-            </a>
+    </div>
 
-            <a href="about.html">
-                About
-            </a>
+</nav>
 
-            <a href="settings.html">
-                Settings
-            </a>
+
+<!-- MAIN -->
+<main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-badge">
+            📅 FIVE DAY FORECAST
+        </div>
+
+        <h1>
+            Weather
+            <span>Forecast.</span>
+        </h1>
+
+        <p id="forecastLocation">
+            Search a city to view its forecast.
+        </p>
+
+    </section>
+
+
+    <!-- LOADING -->
+    <div id="forecastLoading" class="loading hidden">
+
+        <div class="loader"></div>
+
+        <span>
+            Loading forecast...
+        </span>
+
+    </div>
+
+
+    <!-- ERROR -->
+    <div id="forecastError" class="error hidden"></div>
+
+
+    <!-- FORECAST TABLE -->
+    <section class="forecast-section hidden" id="forecastSection">
+
+        <div class="section-heading">
+
+            <h2>
+                📅 5-Day Forecast
+            </h2>
+
+            <p>
+                Daily weather conditions, temperature and precipitation.
+            </p>
 
         </div>
 
-    </nav>
+
+        <!-- DESKTOP TABLE -->
+        <div class="forecast-table-wrapper">
+
+            <table class="forecast-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Day</th>
+
+                        <th>Weather</th>
+
+                        <th>Condition</th>
+
+                        <th>Temperature</th>
+
+                        <th>Rain</th>
+
+                        <th>Humidity</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="forecastTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
 
 
-    <main class="container">
+    <!-- BACK TO HOME -->
+    <div class="forecast-back">
 
-        <section class="hero">
+        <a href="index.html" class="primary-button">
 
-            <div class="hero-badge">
-                📅 FIVE DAY FORECAST
-            </div>
+            ← Back to Weather
 
-            <h1>
-                Weather
-                <span>Forecast.</span>
-            </h1>
+        </a>
 
-            <p id="forecastLocation">
-                Search a city from the Home page.
-            </p>
+    </div>
 
-        </section>
+</main>
 
 
-        <section class="weather-card">
+<!-- FOOTER -->
+<footer>
 
-            <div
-                id="forecastList"
-                class="forecast-list">
+    © 2026 Atmos Weather • Built with Fetch API
 
-                <p class="muted">
-                    Loading forecast...
-                </p>
-
-            </div>
-
-        </section>
-
-    </main>
+</footer>
 
 
-    <footer>
+<script>
 
-        <p>
-            © 2026 Atmos Weather
-        </p>
+const forecastSection =
+    document.getElementById("forecastSection");
 
-    </footer>
+const forecastTableBody =
+    document.getElementById("forecastTableBody");
 
+const forecastLocation =
+    document.getElementById("forecastLocation");
 
-    <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+const forecastLoading =
+    document.getElementById("forecastLoading");
 
-    <script src="js/background.js"></script>
-
-
-    <script>
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            loadForecast
-        );
+const forecastError =
+    document.getElementById("forecastError");
 
 
-        async function loadForecast() {
+/* ==========================================
+   WEATHER CODE
+========================================== */
 
-            const list =
-                document.getElementById(
-                    "forecastList"
-                );
+function getWeatherInfo(code) {
+
+    if (code === 0) {
+
+        return {
+            icon: "☀️",
+            text: "Clear Sky"
+        };
+
+    }
+
+    if (code === 1) {
+
+        return {
+            icon: "🌤️",
+            text: "Mainly Clear"
+        };
+
+    }
+
+    if (code === 2) {
+
+        return {
+            icon: "⛅",
+            text: "Partly Cloudy"
+        };
+
+    }
+
+    if (code === 3) {
+
+        return {
+            icon: "☁️",
+            text: "Cloudy"
+        };
+
+    }
+
+    if (code >= 45 && code <= 48) {
+
+        return {
+            icon: "🌫️",
+            text: "Fog"
+        };
+
+    }
+
+    if (code >= 51 && code <= 57) {
+
+        return {
+            icon: "🌦️",
+            text: "Drizzle"
+        };
+
+    }
+
+    if (code >= 61 && code <= 67) {
+
+        return {
+            icon: "🌧️",
+            text: "Rain"
+        };
+
+    }
+
+    if (code >= 71 && code <= 77) {
+
+        return {
+            icon: "❄️",
+            text: "Snow"
+        };
+
+    }
+
+    if (code >= 80 && code <= 82) {
+
+        return {
+            icon: "🌦️",
+            text: "Rain Showers"
+        };
+
+    }
+
+    if (code >= 85 && code <= 86) {
+
+        return {
+            icon: "🌨️",
+            text: "Snow Showers"
+        };
+
+    }
+
+    if (code >= 95 && code <= 99) {
+
+        return {
+            icon: "⛈️",
+            text: "Thunderstorm"
+        };
+
+    }
+
+    return {
+
+        icon: "🌤️",
+        text: "Weather"
+
+    };
+
+}
 
 
-            const saved =
-                localStorage.getItem(
-                    "selectedCity"
-                );
+/* ==========================================
+   GET CITY FROM URL
+========================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const city =
+    params.get("city");
 
 
-            if (!saved) {
+/* ==========================================
+   LOAD FORECAST
+========================================== */
 
-                list.innerHTML =
-                    `
-                    <div class="empty-state">
-                        <h2>🌍 No city selected</h2>
+async function loadForecast(cityName) {
 
-                        <p>
-                            Go to the Home page and search
-                            for a city first.
-                        </p>
+    forecastLoading.classList.remove("hidden");
 
-                        <br>
+    forecastSection.classList.add("hidden");
 
-                        <a
-                            href="index.html"
-                            class="primary-button">
-                            🔍 Search Weather
-                        </a>
-                    </div>
-                    `;
-
-                return;
-
-            }
+    forecastError.classList.add("hidden");
 
 
-            const location =
-                JSON.parse(saved);
+    try {
+
+        /* CITY SEARCH */
+
+        const geoResponse =
+            await fetch(
+                `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=en&format=json`
+            );
 
 
-            document.getElementById(
-                "forecastLocation"
-            ).textContent =
-                location.name +
-                ", " +
-                (location.country || "");
+        const geoData =
+            await geoResponse.json();
 
 
-            try {
+        if (
+            !geoData.results ||
+            geoData.results.length === 0
+        ) {
 
-                const url =
-                    "https://api.open-meteo.com/v1/forecast" +
-
-                    "?latitude=" +
-                    location.latitude +
-
-                    "&longitude=" +
-                    location.longitude +
-
-                    "&daily=" +
-                    "weather_code," +
-                    "temperature_2m_max," +
-                    "temperature_2m_min," +
-                    "sunrise," +
-                    "sunset," +
-                    "precipitation_probability_max" +
-
-                    "&forecast_days=5" +
-
-                    "&timezone=auto";
-
-
-                const response =
-                    await fetch(url);
-
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        "Forecast unavailable."
-                    );
-
-                }
-
-
-                const data =
-                    await response.json();
-
-
-                renderForecast(
-                    data
-                );
-
-
-            } catch (error) {
-
-                list.innerHTML =
-                    `
-                    <div class="error">
-                        ⚠️
-                        ${error.message}
-                    </div>
-                    `;
-
-            }
+            throw new Error(
+                "City not found."
+            );
 
         }
 
 
-        function renderForecast(data) {
+        const location =
+            geoData.results[0];
 
-            const list =
-                document.getElementById(
-                    "forecastList"
+
+        /* WEATHER API */
+
+        const weatherResponse =
+            await fetch(
+                `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,relative_humidity_2m_max&forecast_days=5&timezone=auto`
+            );
+
+
+        const weather =
+            await weatherResponse.json();
+
+
+        /* LOCATION */
+
+        forecastLocation.textContent =
+            `${location.name}, ${location.country}`;
+
+
+        /* CREATE TABLE */
+
+        forecastTableBody.innerHTML = "";
+
+
+        for (
+            let i = 0;
+            i < weather.daily.time.length;
+            i++
+        ) {
+
+            const date =
+                new Date(
+                    weather.daily.time[i]
                 );
 
 
-            list.innerHTML = "";
-
-
-            for (
-                let i = 0;
-                i < data.daily.time.length;
-                i++
-            ) {
-
-                const date =
-                    new Date(
-                        data.daily.time[i]
-                    );
-
-
-                const day =
-                    date.toLocaleDateString(
-                        [],
+            const day =
+                i === 0
+                    ? "Today"
+                    : date.toLocaleDateString(
+                        "en-US",
                         {
-                            weekday:
-                                "short"
+                            weekday: "short"
                         }
                     );
 
 
-                const fullDate =
-                    date.toLocaleDateString(
-                        [],
-                        {
-                            day:
-                                "numeric",
-                            month:
-                                "short"
-                        }
-                    );
+            const dateText =
+                date.toLocaleDateString(
+                    "en-US",
+                    {
+                        day: "numeric",
+                        month: "short"
+                    }
+                );
 
 
-                const code =
-                    data.daily
-                        .weather_code[i];
+            const weatherInfo =
+                getWeatherInfo(
+                    weather.daily.weather_code[i]
+                );
 
 
-                const max =
-                    Math.round(
-                        data.daily
-                            .temperature_2m_max[i]
-                    );
+            const maxTemp =
+                Math.round(
+                    weather.daily.temperature_2m_max[i]
+                );
 
 
-                const min =
-                    Math.round(
-                        data.daily
-                            .temperature_2m_min[i]
-                    );
+            const minTemp =
+                Math.round(
+                    weather.daily.temperature_2m_min[i]
+                );
 
 
-                const rain =
-                    data.daily
-                        .precipitation_probability_max[i];
+            const rain =
+                weather.daily
+                    .precipitation_probability_max[i];
 
 
-                const item =
-                    document.createElement(
-                        "div"
-                    );
+            const humidity =
+                weather.daily
+                    .relative_humidity_2m_max[i];
 
 
-                item.className =
-                    "forecast-item";
+            const row =
+                document.createElement("tr");
 
 
-                item.innerHTML =
-                    `
+            row.innerHTML = `
+
+                <td>
+
                     <div class="forecast-day">
 
                         <strong>
-                            ${i === 0
-                                ? "Today"
-                                : day}
+                            ${day}
                         </strong>
 
                         <small>
-                            ${fullDate}
+                            ${dateText}
                         </small>
 
                     </div>
 
+                </td>
 
-                    <div class="forecast-icon">
-                        ${getIcon(code)}
+
+                <td>
+
+                    <div class="table-weather-icon">
+
+                        ${weatherInfo.icon}
+
                     </div>
 
-
-                    <div class="forecast-condition">
-                        ${getDescription(code)}
-                    </div>
+                </td>
 
 
-                    <div class="forecast-temp">
+                <td>
+
+                    <span class="condition-text">
+
+                        ${weatherInfo.text}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <div class="table-temperature">
 
                         <strong>
-                            ${max}°
+                            ${maxTemp}°
                         </strong>
 
                         <span>
-                            ${min}°
+                            ${minTemp}°
                         </span>
 
                     </div>
 
-
-                    <div class="forecast-rain">
-                        💧 ${rain ?? "--"}%
-                    </div>
-                    `;
+                </td>
 
 
-                list.appendChild(
-                    item
-                );
+                <td>
+
+                    <span class="rain-value">
+
+                        💧 ${rain}%
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <span class="humidity-value">
+
+                        💦 ${humidity}%
+
+                    </span>
+
+                </td>
+
+            `;
+
+
+            forecastTableBody.appendChild(row);
+
+        }
+
+
+        forecastSection.classList.remove(
+            "hidden"
+        );
+
+
+    }
+
+    catch (error) {
+
+        forecastError.textContent =
+            error.message;
+
+        forecastError.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+    finally {
+
+        forecastLoading.classList.add(
+            "hidden"
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   NO CITY
+========================================== */
+
+if (city) {
+
+    loadForecast(city);
+
+}
+
+else {
+
+    forecastError.textContent =
+        "No city selected. Please search for a city from the Home page first.";
+
+    forecastError.classList.remove(
+        "hidden"
+    );
+
+}
+
+</script>
+
+
+<!-- 3D BACKGROUND -->
+
+<script>
+
+const canvas =
+    document.getElementById(
+        "weather3D"
+    );
+
+
+const ctx =
+    canvas.getContext("2d");
+
+
+function resizeCanvas() {
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+const stars = [];
+
+
+for (
+    let i = 0;
+    i < 160;
+    i++
+) {
+
+    stars.push({
+
+        x:
+            Math.random() *
+            window.innerWidth,
+
+        y:
+            Math.random() *
+            window.innerHeight,
+
+        size:
+            Math.random() * 2,
+
+        speed:
+            Math.random() * 0.4 + 0.1
+
+    });
+
+}
+
+
+function animateBackground() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    stars.forEach(
+        star => {
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                star.x,
+                star.y,
+                star.size,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                "rgba(125,211,252,0.65)";
+
+
+            ctx.fill();
+
+
+            star.y += star.speed;
+
+
+            if (
+                star.y >
+                canvas.height
+            ) {
+
+                star.y = 0;
 
             }
 
         }
+    );
 
 
-        function getIcon(code) {
+    requestAnimationFrame(
+        animateBackground
+    );
 
-            if (code === 0)
-                return "☀️";
-
-            if (code <= 3)
-                return "⛅";
-
-            if (code <= 48)
-                return "🌫️";
-
-            if (code <= 67)
-                return "🌧️";
-
-            if (code <= 77)
-                return "❄️";
-
-            if (code <= 82)
-                return "🌦️";
-
-            if (code <= 86)
-                return "🌨️";
-
-            return "⛈️";
-
-        }
+}
 
 
-        function getDescription(code) {
+animateBackground();
 
-            if (code === 0)
-                return "Clear";
+</script>
 
-            if (code <= 3)
-                return "Cloudy";
-
-            if (code <= 48)
-                return "Fog";
-
-            if (code <= 67)
-                return "Rain";
-
-            if (code <= 77)
-                return "Snow";
-
-            if (code <= 86)
-                return "Showers";
-
-            return "Thunderstorm";
-
-        }
-
-    </script>
 
 </body>
 
-</html>
+    </html>
