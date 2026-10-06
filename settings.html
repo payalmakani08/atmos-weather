@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Settings | Atmos</title>
+
+<link rel="stylesheet"
+href="css/style.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<a href="index.html"
+class="logo">
+🌤️ ATMOS
+</a>
+
+<div class="nav-links">
+
+<a href="index.html">Home</a>
+
+<a href="forecast.html">Forecast</a>
+
+<a href="favorites.html">Favorites</a>
+
+<a href="about.html">About</a>
+
+<a href="settings.html">Settings</a>
+
+</div>
+
+</nav>
+
+
+<main class="container">
+
+<section class="hero">
+
+<h1>
+⚙️ <span>Settings</span>
+</h1>
+
+<p>
+Customize your weather experience.
+</p>
+
+</section>
+
+
+<section class="weather-card">
+
+<h2>Preferences</h2>
+
+<br>
+
+
+<button onclick="clearFavorites()">
+
+Clear Favorite Cities
+
+</button>
+
+
+<br><br>
+
+
+<button onclick="clearRecent()">
+
+Clear Search History
+
+</button>
+
+</section>
+
+</main>
+
+
+<script>
+
+function clearFavorites() {
+
+    localStorage.removeItem(
+        "favorites"
+    );
+
+    alert(
+        "Favorites cleared!"
+    );
+
+}
+
+
+function clearRecent() {
+
+    localStorage.removeItem(
+        "recentCities"
+    );
+
+    alert(
+        "Search history cleared!"
+    );
+
+}
+
+</script>
+
+
+<footer>
+
+<p>
+© 2026 Atmos Weather
+</p>
+
+</footer>
+
+</body>
+
+</html>
