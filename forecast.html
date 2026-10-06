@@ -2,29 +2,186 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Forecast | Atmos Weather</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="css/style.css">
+    <title>Atmos Forecast</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        .forecast-table-wrapper {
+
+            overflow-x: auto;
+
+            border-radius: 20px;
+
+        }
+
+
+        .forecast-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 700px;
+
+        }
+
+
+        .forecast-table th {
+
+            padding: 17px;
+
+            text-align: left;
+
+            color: #8fa2bd;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            background:
+                rgba(255,255,255,.04);
+
+        }
+
+
+        .forecast-table td {
+
+            padding: 20px 17px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,.07);
+
+        }
+
+
+        .forecast-table tr {
+
+            transition: .25s ease;
+
+        }
+
+
+        .forecast-table tbody tr:hover {
+
+            background:
+                rgba(103,232,249,.07);
+
+        }
+
+
+        .forecast-weather {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .forecast-weather-icon {
+
+            font-size: 32px;
+
+        }
+
+
+        .forecast-date {
+
+            font-weight: 800;
+
+        }
+
+
+        .forecast-date small {
+
+            display: block;
+
+            margin-top: 5px;
+
+            color: #8190a8;
+
+            font-weight: 400;
+
+        }
+
+
+        .max-temp {
+
+            font-weight: 900;
+
+            font-size: 18px;
+
+        }
+
+
+        .min-temp {
+
+            color: #8190a8;
+
+        }
+
+
+        .rain-chance {
+
+            color: #67e8f9;
+
+        }
+
+
+        @media(max-width:700px) {
+
+            .forecast-table-wrapper {
+
+                margin:
+                    0 -5px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<!-- 3D WEATHER BACKGROUND -->
 <canvas id="weather3D"></canvas>
 
-<!-- NAVBAR -->
-<nav class="navbar">
 
-    <a href="index.html" class="logo">
+<header class="navbar">
+
+    <a
+        href="index.html"
+        class="logo"
+    >
         🌤️ ATMOS
     </a>
 
-    <div class="nav-links">
 
-        <a href="index.html">Home</a>
+    <nav class="nav-links">
+
+        <a href="index.html">
+            Home
+        </a>
 
         <a href="forecast.html">
             Forecast
@@ -42,66 +199,54 @@
             Settings
         </a>
 
-    </div>
+    </nav>
 
-</nav>
+</header>
 
 
-<!-- MAIN -->
 <main class="container">
 
-    <!-- HERO -->
+
     <section class="hero">
 
         <div class="hero-badge">
-            📅 FIVE DAY FORECAST
+            📅 7 DAY FORECAST
         </div>
 
+
         <h1>
+
             Weather
-            <span>Forecast.</span>
+
+            <span>
+                Forecast.
+            </span>
+
         </h1>
 
+
         <p id="forecastLocation">
-            Search a city to view its forecast.
+            Loading location...
         </p>
 
     </section>
 
 
-    <!-- LOADING -->
-    <div id="forecastLoading" class="loading hidden">
-
-        <div class="loader"></div>
-
-        <span>
-            Loading forecast...
-        </span>
-
-    </div>
-
-
-    <!-- ERROR -->
-    <div id="forecastError" class="error hidden"></div>
-
-
-    <!-- FORECAST TABLE -->
-    <section class="forecast-section hidden" id="forecastSection">
+    <section class="details-section">
 
         <div class="section-heading">
 
             <h2>
-                📅 5-Day Forecast
+                📅 Extended Forecast
             </h2>
 
             <p>
-                Daily weather conditions, temperature and precipitation.
+                Daily weather conditions, temperatures and rain probability.
             </p>
 
         </div>
 
 
-        <!-- DESKTOP TABLE -->
         <div class="forecast-table-wrapper">
 
             <table class="forecast-table">
@@ -110,25 +255,38 @@
 
                     <tr>
 
-                        <th>Day</th>
+                        <th>
+                            Day
+                        </th>
 
-                        <th>Weather</th>
+                        <th>
+                            Weather
+                        </th>
 
-                        <th>Condition</th>
+                        <th>
+                            Condition
+                        </th>
 
-                        <th>Temperature</th>
+                        <th>
+                            Temperature
+                        </th>
 
-                        <th>Rain</th>
+                        <th>
+                            Rain
+                        </th>
 
-                        <th>Humidity</th>
+                        <th>
+                            UV
+                        </th>
 
                     </tr>
 
                 </thead>
 
-                <tbody id="forecastTableBody">
 
-                </tbody>
+                <tbody
+                    id="forecastTable"
+                ></tbody>
 
             </table>
 
@@ -137,570 +295,25 @@
     </section>
 
 
-    <!-- BACK TO HOME -->
-    <div class="forecast-back">
-
-        <a href="index.html" class="primary-button">
-
-            ← Back to Weather
-
-        </a>
-
-    </div>
-
 </main>
 
 
-<!-- FOOTER -->
 <footer>
 
-    © 2026 Atmos Weather • Built with Fetch API
+    © 2026 Atmos Weather
 
 </footer>
 
 
-<script>
+<script
+    src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.js"
+></script>
 
-const forecastSection =
-    document.getElementById("forecastSection");
+<script src="js/weather3d.js"></script>
 
-const forecastTableBody =
-    document.getElementById("forecastTableBody");
-
-const forecastLocation =
-    document.getElementById("forecastLocation");
-
-const forecastLoading =
-    document.getElementById("forecastLoading");
-
-const forecastError =
-    document.getElementById("forecastError");
-
-
-/* ==========================================
-   WEATHER CODE
-========================================== */
-
-function getWeatherInfo(code) {
-
-    if (code === 0) {
-
-        return {
-            icon: "☀️",
-            text: "Clear Sky"
-        };
-
-    }
-
-    if (code === 1) {
-
-        return {
-            icon: "🌤️",
-            text: "Mainly Clear"
-        };
-
-    }
-
-    if (code === 2) {
-
-        return {
-            icon: "⛅",
-            text: "Partly Cloudy"
-        };
-
-    }
-
-    if (code === 3) {
-
-        return {
-            icon: "☁️",
-            text: "Cloudy"
-        };
-
-    }
-
-    if (code >= 45 && code <= 48) {
-
-        return {
-            icon: "🌫️",
-            text: "Fog"
-        };
-
-    }
-
-    if (code >= 51 && code <= 57) {
-
-        return {
-            icon: "🌦️",
-            text: "Drizzle"
-        };
-
-    }
-
-    if (code >= 61 && code <= 67) {
-
-        return {
-            icon: "🌧️",
-            text: "Rain"
-        };
-
-    }
-
-    if (code >= 71 && code <= 77) {
-
-        return {
-            icon: "❄️",
-            text: "Snow"
-        };
-
-    }
-
-    if (code >= 80 && code <= 82) {
-
-        return {
-            icon: "🌦️",
-            text: "Rain Showers"
-        };
-
-    }
-
-    if (code >= 85 && code <= 86) {
-
-        return {
-            icon: "🌨️",
-            text: "Snow Showers"
-        };
-
-    }
-
-    if (code >= 95 && code <= 99) {
-
-        return {
-            icon: "⛈️",
-            text: "Thunderstorm"
-        };
-
-    }
-
-    return {
-
-        icon: "🌤️",
-        text: "Weather"
-
-    };
-
-}
-
-
-/* ==========================================
-   GET CITY FROM URL
-========================================== */
-
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const city =
-    params.get("city");
-
-
-/* ==========================================
-   LOAD FORECAST
-========================================== */
-
-async function loadForecast(cityName) {
-
-    forecastLoading.classList.remove("hidden");
-
-    forecastSection.classList.add("hidden");
-
-    forecastError.classList.add("hidden");
-
-
-    try {
-
-        /* CITY SEARCH */
-
-        const geoResponse =
-            await fetch(
-                `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=en&format=json`
-            );
-
-
-        const geoData =
-            await geoResponse.json();
-
-
-        if (
-            !geoData.results ||
-            geoData.results.length === 0
-        ) {
-
-            throw new Error(
-                "City not found."
-            );
-
-        }
-
-
-        const location =
-            geoData.results[0];
-
-
-        /* WEATHER API */
-
-        const weatherResponse =
-            await fetch(
-                `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,relative_humidity_2m_max&forecast_days=5&timezone=auto`
-            );
-
-
-        const weather =
-            await weatherResponse.json();
-
-
-        /* LOCATION */
-
-        forecastLocation.textContent =
-            `${location.name}, ${location.country}`;
-
-
-        /* CREATE TABLE */
-
-        forecastTableBody.innerHTML = "";
-
-
-        for (
-            let i = 0;
-            i < weather.daily.time.length;
-            i++
-        ) {
-
-            const date =
-                new Date(
-                    weather.daily.time[i]
-                );
-
-
-            const day =
-                i === 0
-                    ? "Today"
-                    : date.toLocaleDateString(
-                        "en-US",
-                        {
-                            weekday: "short"
-                        }
-                    );
-
-
-            const dateText =
-                date.toLocaleDateString(
-                    "en-US",
-                    {
-                        day: "numeric",
-                        month: "short"
-                    }
-                );
-
-
-            const weatherInfo =
-                getWeatherInfo(
-                    weather.daily.weather_code[i]
-                );
-
-
-            const maxTemp =
-                Math.round(
-                    weather.daily.temperature_2m_max[i]
-                );
-
-
-            const minTemp =
-                Math.round(
-                    weather.daily.temperature_2m_min[i]
-                );
-
-
-            const rain =
-                weather.daily
-                    .precipitation_probability_max[i];
-
-
-            const humidity =
-                weather.daily
-                    .relative_humidity_2m_max[i];
-
-
-            const row =
-                document.createElement("tr");
-
-
-            row.innerHTML = `
-
-                <td>
-
-                    <div class="forecast-day">
-
-                        <strong>
-                            ${day}
-                        </strong>
-
-                        <small>
-                            ${dateText}
-                        </small>
-
-                    </div>
-
-                </td>
-
-
-                <td>
-
-                    <div class="table-weather-icon">
-
-                        ${weatherInfo.icon}
-
-                    </div>
-
-                </td>
-
-
-                <td>
-
-                    <span class="condition-text">
-
-                        ${weatherInfo.text}
-
-                    </span>
-
-                </td>
-
-
-                <td>
-
-                    <div class="table-temperature">
-
-                        <strong>
-                            ${maxTemp}°
-                        </strong>
-
-                        <span>
-                            ${minTemp}°
-                        </span>
-
-                    </div>
-
-                </td>
-
-
-                <td>
-
-                    <span class="rain-value">
-
-                        💧 ${rain}%
-
-                    </span>
-
-                </td>
-
-
-                <td>
-
-                    <span class="humidity-value">
-
-                        💦 ${humidity}%
-
-                    </span>
-
-                </td>
-
-            `;
-
-
-            forecastTableBody.appendChild(row);
-
-        }
-
-
-        forecastSection.classList.remove(
-            "hidden"
-        );
-
-
-    }
-
-    catch (error) {
-
-        forecastError.textContent =
-            error.message;
-
-        forecastError.classList.remove(
-            "hidden"
-        );
-
-    }
-
-
-    finally {
-
-        forecastLoading.classList.add(
-            "hidden"
-        );
-
-    }
-
-}
-
-
-/* ==========================================
-   NO CITY
-========================================== */
-
-if (city) {
-
-    loadForecast(city);
-
-}
-
-else {
-
-    forecastError.textContent =
-        "No city selected. Please search for a city from the Home page first.";
-
-    forecastError.classList.remove(
-        "hidden"
-    );
-
-}
-
-</script>
-
-
-<!-- 3D BACKGROUND -->
-
-<script>
-
-const canvas =
-    document.getElementById(
-        "weather3D"
-    );
-
-
-const ctx =
-    canvas.getContext("2d");
-
-
-function resizeCanvas() {
-
-    canvas.width =
-        window.innerWidth;
-
-    canvas.height =
-        window.innerHeight;
-
-}
-
-
-resizeCanvas();
-
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-
-const stars = [];
-
-
-for (
-    let i = 0;
-    i < 160;
-    i++
-) {
-
-    stars.push({
-
-        x:
-            Math.random() *
-            window.innerWidth,
-
-        y:
-            Math.random() *
-            window.innerHeight,
-
-        size:
-            Math.random() * 2,
-
-        speed:
-            Math.random() * 0.4 + 0.1
-
-    });
-
-}
-
-
-function animateBackground() {
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    stars.forEach(
-        star => {
-
-            ctx.beginPath();
-
-
-            ctx.arc(
-                star.x,
-                star.y,
-                star.size,
-                0,
-                Math.PI * 2
-            );
-
-
-            ctx.fillStyle =
-                "rgba(125,211,252,0.65)";
-
-
-            ctx.fill();
-
-
-            star.y += star.speed;
-
-
-            if (
-                star.y >
-                canvas.height
-            ) {
-
-                star.y = 0;
-
-            }
-
-        }
-    );
-
-
-    requestAnimationFrame(
-        animateBackground
-    );
-
-}
-
-
-animateBackground();
-
-</script>
+<script src="js/forecast.js"></script>
 
 
 </body>
 
-    </html>
+</html>
