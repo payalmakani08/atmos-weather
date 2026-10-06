@@ -1,86 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <title>Atmos Weather | Forecast</title>
 
-<title>Forecast | Atmos</title>
-
-<link rel="stylesheet"
-href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-<nav class="navbar">
+    <!-- Navigation -->
+    <nav class="navbar">
 
-<a href="index.html"
-class="logo">
-🌤️ ATMOS
-</a>
+        <a href="index.html" class="logo">
+            🌤️ ATMOS
+        </a>
 
-<div class="nav-links">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="forecast.html">Forecast</a>
+            <a href="favorites.html">Favorites</a>
+            <a href="about.html">About</a>
+            <a href="settings.html">Settings</a>
+        </div>
 
-<a href="index.html">Home</a>
-
-<a href="forecast.html">Forecast</a>
-
-<a href="favorites.html">Favorites</a>
-
-<a href="about.html">About</a>
-
-<a href="settings.html">Settings</a>
-
-</div>
-
-</nav>
+    </nav>
 
 
-<main class="container">
+    <main class="container">
 
-<section class="hero">
+        <section class="hero">
 
-<h1>
-5-Day <span>Forecast</span>
-</h1>
+            <p class="badge">5-DAY FORECAST</p>
 
-<p>
-Plan your next five days.
-</p>
+            <h1>
+                Weather <span>Forecast</span>
+            </h1>
 
-</section>
+            <p id="forecastSubtitle">
+                Search a city to see its forecast.
+            </p>
 
-
-<section class="weather-card">
-
-<h2>Forecast</h2>
-
-<div id="forecastList">
-
-<p>
-Search a city from the Home page first.
-</p>
-
-</div>
-
-</section>
-
-</main>
+        </section>
 
 
-<footer>
+        <div id="forecastLoading" class="loading hidden">
+            🌎 Loading forecast...
+        </div>
 
-<p>
-© 2026 Atmos Weather
-</p>
 
-</footer>
+        <div id="forecastError" class="error hidden"></div>
+
+
+        <section class="forecast-card">
+
+            <h2 id="forecastCity">
+                📍 No City Selected
+            </h2>
+
+            <div id="forecastList">
+
+                <div class="empty-state">
+
+                    <div>🌦️</div>
+
+                    <h3>No forecast yet</h3>
+
+                    <p>
+                        Go to Home and search for a city.
+                    </p>
+
+                    <a href="index.html" class="primary-btn">
+                        🔍 Search City
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>© 2026 Atmos Weather</p>
+    </footer>
+
+
+    <script src="js/app.js"></script>
 
 </body>
-
 </html>
