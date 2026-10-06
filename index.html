@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Atmos Weather | Home</title>
+    <title>Atmos Weather</title>
+
+    <meta name="description"
+        content="Atmos Weather - Real-time weather, AQI, sunrise, sunset and forecasts.">
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -14,7 +18,10 @@
 
 <body>
 
-    <!-- Navigation -->
+    <!-- 3D Weather Background -->
+    <canvas id="weather3D"></canvas>
+
+    <!-- NAVIGATION -->
     <nav class="navbar">
 
         <a href="index.html" class="logo">
@@ -32,12 +39,15 @@
     </nav>
 
 
-    <!-- Main -->
+    <!-- MAIN -->
     <main class="container">
 
+        <!-- HERO -->
         <section class="hero">
 
-            <p class="badge">REAL-TIME WEATHER</p>
+            <div class="hero-badge">
+                🌍 REAL-TIME WEATHER
+            </div>
 
             <h1>
                 Weather,
@@ -46,10 +56,12 @@
 
             <p>
                 Search any city and explore live weather,
-                forecasts and temperature trends.
+                forecasts and atmospheric conditions.
             </p>
 
-            <form id="weatherForm">
+
+            <!-- SEARCH -->
+            <form id="weatherForm" class="search-form">
 
                 <input
                     type="text"
@@ -65,79 +77,96 @@
 
             </form>
 
+            <div id="loading" class="loading hidden">
+                <div class="loader"></div>
+                <span>Loading weather...</span>
+            </div>
+
+            <div id="error" class="error hidden"></div>
+
         </section>
 
 
-        <!-- Loading -->
-        <div id="loading" class="loading hidden">
-            🌎 Finding weather...
-        </div>
-
-
-        <!-- Error -->
-        <div id="error" class="error hidden"></div>
-
-
-        <!-- Weather Card -->
+        <!-- CURRENT WEATHER -->
         <section id="weatherCard" class="weather-card hidden">
 
             <div class="weather-top">
 
                 <div>
-                    <p class="small-label">CURRENT WEATHER</p>
+
+                    <div class="mini-title">
+                        CURRENT WEATHER
+                    </div>
 
                     <h2 id="cityName">
-                        Delhi, India
+                        --
                     </h2>
 
                     <p id="description">
-                        Clear sky ☀️
+                        --
                     </p>
+
                 </div>
 
-                <div class="weather-icon" id="weatherIcon">
-                    ☀️
+                <div id="weatherIcon" class="weather-icon">
+                    🌤️
                 </div>
 
             </div>
 
 
-            <div class="temperature">
-                <span id="temperature">--</span>°
-                <small>C</small>
+            <div class="temperature-box">
+
+                <div class="temperature">
+                    <span id="temperature">--</span>
+                    <sup>°C</sup>
+                </div>
+
+                <div class="feels-text">
+                    Feels like
+                    <strong id="feelsLike">--</strong>
+                </div>
+
             </div>
 
 
+            <!-- BASIC WEATHER INFO -->
             <div class="weather-info">
 
-                <div class="info-box">
+                <div class="info-card">
                     <span>💧</span>
                     <strong id="humidity">--</strong>
                     <small>Humidity</small>
                 </div>
 
-                <div class="info-box">
+                <div class="info-card">
                     <span>💨</span>
                     <strong id="wind">--</strong>
                     <small>Wind</small>
                 </div>
 
-                <div class="info-box">
+                <div class="info-card">
                     <span>🌡️</span>
-                    <strong id="feelsLike">--</strong>
-                    <small>Feels Like</small>
+                    <strong id="pressure">--</strong>
+                    <small>Weather Code</small>
                 </div>
 
             </div>
 
 
-            <div class="weather-buttons">
+            <!-- ACTION BUTTONS -->
+            <div class="weather-actions">
 
-                <button id="favoriteButton" class="secondary-btn">
+                <button
+                    id="favoriteButton"
+                    class="secondary-button">
                     ❤️ Add to Favorites
                 </button>
 
-                <a id="forecastLink" class="primary-btn" href="forecast.html">
+                <a
+                    id="forecastButton"
+                    href="forecast.html"
+                    class="primary-button">
                     📅 View Forecast
                 </a>
 
@@ -146,28 +175,208 @@
         </section>
 
 
-        <!-- Chart -->
+        <!-- EXTRA DETAILS -->
+        <section class="details-section">
+
+            <div class="section-heading">
+                <h2>🌍 Atmosphere & Sunlight</h2>
+
+                <p>
+                    Detailed atmospheric information
+                </p>
+            </div>
+
+
+            <div class="details-grid">
+
+                <!-- AQI -->
+                <div class="detail-card">
+
+                    <span class="detail-icon">
+                        🌫️
+                    </span>
+
+                    <p>Air Quality Index</p>
+
+                    <h3 id="aqiValue">
+                        --
+                    </h3>
+
+                    <small id="aqiLabel">
+                        Waiting for data
+                    </small>
+
+                </div>
+
+
+                <!-- SUNRISE -->
+                <div class="detail-card">
+
+                    <span class="detail-icon">
+                        🌅
+                    </span>
+
+                    <p>Sunrise</p>
+
+                    <h3 id="sunriseValue">
+                        --
+                    </h3>
+
+                    <small>
+                        Local time
+                    </small>
+
+                </div>
+
+
+                <!-- SUNSET -->
+                <div class="detail-card">
+
+                    <span class="detail-icon">
+                        🌇
+                    </span>
+
+                    <p>Sunset</p>
+
+                    <h3 id="sunsetValue">
+                        --
+                    </h3>
+
+                    <small>
+                        Local time
+                    </small>
+
+                </div>
+
+
+                <!-- UV -->
+                <div class="detail-card">
+
+                    <span class="detail-icon">
+                        ☀️
+                    </span>
+
+                    <p>UV Index</p>
+
+                    <h3 id="uvValue">
+                        --
+                    </h3>
+
+                    <small id="uvLabel">
+                        UV level
+                    </small>
+
+                </div>
+
+
+                <!-- RAIN -->
+                <div class="detail-card">
+
+                    <span class="detail-icon">
+                        🌧️
+                    </span>
+
+                    <p>Rain Probability</p>
+
+                    <h3 id="rainValue">
+                        --
+                    </h3>
+
+                    <small>
+                        Current hour
+                    </small>
+
+                </div>
+
+
+                <!-- VISIBILITY -->
+                <div class="detail-card">
+
+                    <span class="detail-icon">
+                        👁️
+                    </span>
+
+                    <p>Visibility</p>
+
+                    <h3 id="visibilityValue">
+                        --
+                    </h3>
+
+                    <small>
+                        Current estimate
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TEMPERATURE CHART -->
         <section class="chart-container">
 
-            <h2>📈 Temperature Trend</h2>
+            <div class="section-heading">
 
-            <p>
-                Temperature for the next 24 hours
-            </p>
+                <h2>
+                    📈 Temperature Trend
+                </h2>
 
-            <canvas id="temperatureChart"></canvas>
+                <p>
+                    Temperature for the next 24 hours
+                </p>
+
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="temperatureChart"></canvas>
+            </div>
+
+        </section>
+
+
+        <!-- RECENT SEARCHES -->
+        <section
+            id="recentSection"
+            class="recent-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    🕘 Recent Searches
+                </h2>
+
+            </div>
+
+            <div id="recentCities"
+                class="recent-cities">
+            </div>
 
         </section>
 
     </main>
 
 
+    <!-- FOOTER -->
     <footer>
-        <p>© 2026 Atmos Weather • Built with Fetch API</p>
+
+        <p>
+            © 2026 Atmos Weather
+            • Built with Fetch API
+        </p>
+
     </footer>
 
 
+    <!-- THREE.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+
+    <!-- APP -->
     <script src="js/app.js"></script>
 
+    <!-- 3D BACKGROUND -->
+    <script src="js/background.js"></script>
+
 </body>
+
 </html>
