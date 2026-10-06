@@ -1,30 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Atmos Weather | About</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/style.css">
+    <title>About | Atmos</title>
+
+    <link rel="stylesheet"
+        href="css/style.css">
 
 </head>
 
 <body>
 
+    <canvas id="weather3D"></canvas>
+
+
     <nav class="navbar">
 
-        <a href="index.html" class="logo">
+        <a href="index.html"
+            class="logo">
             🌤️ ATMOS
         </a>
 
         <div class="nav-links">
+
             <a href="index.html">Home</a>
+
             <a href="forecast.html">Forecast</a>
+
             <a href="favorites.html">Favorites</a>
+
             <a href="about.html">About</a>
+
             <a href="settings.html">Settings</a>
+
         </div>
 
     </nav>
@@ -34,94 +48,73 @@
 
         <section class="hero">
 
-            <p class="badge">ABOUT ATMOS</p>
+            <div class="hero-badge">
+                🌍 ABOUT ATMOS
+            </div>
 
             <h1>
-                Meet <span>Atmos</span>
+                About
+                <span>Atmos.</span>
             </h1>
 
             <p>
-                A modern weather experience built for every device.
+                A modern weather visualization
+                experience.
             </p>
 
         </section>
 
 
-        <section class="about-grid">
+        <section class="weather-card">
 
-            <div class="about-box">
+            <h2>
+                🌤️ What is Atmos?
+            </h2>
 
-                <div class="about-icon">🌎</div>
+            <br>
 
-                <h2>Real-Time Data</h2>
+            <p>
+                Atmos is a responsive weather
+                application designed to make
+                weather information beautiful,
+                interactive and easy to understand.
+            </p>
 
-                <p>
-                    Atmos uses the Open-Meteo weather API to retrieve
-                    current weather and forecast information.
-                </p>
+            <br>
 
-            </div>
+            <p>
+                Search any city to view current
+                weather conditions, temperature
+                trends, air quality, sunrise,
+                sunset, UV index and more.
+            </p>
 
+            <br>
 
-            <div class="about-box">
+            <p>
+                Atmos uses the JavaScript Fetch API
+                to retrieve real-time weather data.
+            </p>
 
-                <div class="about-icon">⚡</div>
+            <br>
 
-                <h2>Fast & Simple</h2>
+            <p>
+                The interface is designed to work
+                on phones, tablets and computers.
+            </p>
 
-                <p>
-                    Search a city and instantly see its weather
-                    information without refreshing the page.
-                </p>
+            <br>
 
-            </div>
+            <h3>
+                🚀 Technologies
+            </h3>
 
+            <br>
 
-            <div class="about-box">
-
-                <div class="about-icon">📱</div>
-
-                <h2>Responsive</h2>
-
-                <p>
-                    The interface works on smartphones, tablets,
-                    laptops and desktop computers.
-                </p>
-
-            </div>
-
-
-            <div class="about-box">
-
-                <div class="about-icon">📊</div>
-
-                <h2>Visualization</h2>
-
-                <p>
-                    Temperature trends are displayed using
-                    interactive charts.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <section class="weather-card about-main">
-
-            <h2>🛠️ Technologies Used</h2>
-
-            <div class="tech-list">
-
-                <span>HTML5</span>
-                <span>CSS3</span>
-                <span>JavaScript</span>
-                <span>Fetch API</span>
-                <span>Open-Meteo API</span>
-                <span>Chart.js</span>
-                <span>GitHub Pages</span>
-
-            </div>
+            <p>
+                HTML • CSS • JavaScript • Fetch API
+                • Three.js • Chart.js
+            </p>
 
         </section>
 
@@ -129,11 +122,18 @@
 
 
     <footer>
-        <p>© 2026 Atmos Weather</p>
+
+        <p>
+            © 2026 Atmos Weather
+        </p>
+
     </footer>
 
 
-    <script src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+
+    <script src="js/background.js"></script>
 
 </body>
+
 </html>
