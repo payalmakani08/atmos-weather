@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Favorites | Atmos</title>
+
+<link rel="stylesheet"
+href="css/style.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<a href="index.html"
+class="logo">
+🌤️ ATMOS
+</a>
+
+<div class="nav-links">
+
+<a href="index.html">Home</a>
+
+<a href="forecast.html">Forecast</a>
+
+<a href="favorites.html">Favorites</a>
+
+<a href="about.html">About</a>
+
+<a href="settings.html">Settings</a>
+
+</div>
+
+</nav>
+
+
+<main class="container">
+
+<section class="hero">
+
+<h1>
+❤️ Your <span>Favorites</span>
+</h1>
+
+<p>
+Your saved cities.
+</p>
+
+</section>
+
+
+<section class="weather-card">
+
+<div id="favoritesList">
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+<p>
+© 2026 Atmos Weather
+</p>
+
+</footer>
+
+
+<script>
+
+const list =
+document.getElementById(
+    "favoritesList"
+);
+
+const favorites =
+JSON.parse(
+    localStorage.getItem(
+        "favorites"
+    )
+) || [];
+
+
+if (favorites.length === 0) {
+
+    list.innerHTML =
+        "<p>No favorite cities yet.</p>";
+
+} else {
+
+    favorites.forEach(
+        city => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.style.padding =
+                "15px";
+
+            item.innerHTML = `
+                <h3>📍 ${city}</h3>
+
+                <a href="index.html">
+                    View weather →
+                </a>
+            `;
+
+            list.appendChild(item);
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>
