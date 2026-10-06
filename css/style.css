@@ -1695,3 +1695,439 @@ footer {
     }
 
 }
+/* ==========================================
+   PREMIUM FORECAST TABLE
+========================================== */
+
+.forecast-section {
+
+    margin: 35px auto;
+
+    padding: 28px;
+
+    border-radius: 28px;
+
+    background:
+        rgba(15, 30, 57, 0.72);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.10);
+
+    backdrop-filter:
+        blur(22px);
+
+    -webkit-backdrop-filter:
+        blur(22px);
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,0.25);
+
+    animation:
+        forecastAppear 0.7s ease;
+
+}
+
+
+@keyframes forecastAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* ==========================================
+   TABLE WRAPPER
+========================================== */
+
+.forecast-table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 20px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+}
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.forecast-table {
+
+    width: 100%;
+
+    min-width: 720px;
+
+    border-collapse: collapse;
+
+    color: white;
+
+}
+
+
+/* ==========================================
+   TABLE HEADER
+========================================== */
+
+.forecast-table thead {
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(6,182,212,0.14),
+            rgba(124,58,237,0.14)
+        );
+
+}
+
+
+.forecast-table th {
+
+    padding:
+        17px 15px;
+
+    text-align: left;
+
+    color:
+        #9bdff5;
+
+    font-size:
+        11px;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        1px;
+
+    font-weight:
+        800;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,0.10);
+
+}
+
+
+/* ==========================================
+   TABLE ROW
+========================================== */
+
+.forecast-table tbody tr {
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.forecast-table tbody tr:not(:last-child) {
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,0.06);
+
+}
+
+
+.forecast-table tbody tr:hover {
+
+    background:
+        rgba(103,232,249,0.07);
+
+    transform:
+        scale(1.005);
+
+}
+
+
+.forecast-table td {
+
+    padding:
+        19px 15px;
+
+    vertical-align:
+        middle;
+
+}
+
+
+/* ==========================================
+   DAY
+========================================== */
+
+.forecast-day strong {
+
+    display:
+        block;
+
+    font-size:
+        15px;
+
+    color:
+        #ffffff;
+
+}
+
+
+.forecast-day small {
+
+    display:
+        block;
+
+    margin-top:
+        5px;
+
+    color:
+        #8190a8;
+
+    font-size:
+        11px;
+
+}
+
+
+/* ==========================================
+   WEATHER ICON
+========================================== */
+
+.table-weather-icon {
+
+    font-size:
+        32px;
+
+    width:
+        45px;
+
+    text-align:
+        center;
+
+    filter:
+        drop-shadow(
+            0 5px 10px
+            rgba(255,255,255,0.12)
+        );
+
+}
+
+
+/* ==========================================
+   CONDITION
+========================================== */
+
+.condition-text {
+
+    color:
+        #dbeafe;
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+}
+
+
+/* ==========================================
+   TEMPERATURE
+========================================== */
+
+.table-temperature {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+}
+
+
+.table-temperature strong {
+
+    font-size:
+        20px;
+
+    color:
+        #ffffff;
+
+}
+
+
+.table-temperature span {
+
+    color:
+        #8190a8;
+
+    font-size:
+        15px;
+
+}
+
+
+/* ==========================================
+   RAIN
+========================================== */
+
+.rain-value {
+
+    display:
+        inline-flex;
+
+    padding:
+        7px 11px;
+
+    border-radius:
+        50px;
+
+    background:
+        rgba(56,189,248,0.10);
+
+    border:
+        1px solid
+        rgba(56,189,248,0.15);
+
+    color:
+        #67e8f9;
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+}
+
+
+/* ==========================================
+   HUMIDITY
+========================================== */
+
+.humidity-value {
+
+    color:
+        #c4b5fd;
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+}
+
+
+/* ==========================================
+   BACK BUTTON
+========================================== */
+
+.forecast-back {
+
+    text-align:
+        center;
+
+    margin:
+        30px 0;
+
+}
+
+
+/* ==========================================
+   MOBILE FORECAST
+========================================== */
+
+@media (max-width: 700px) {
+
+    .forecast-section {
+
+        padding:
+            18px;
+
+        border-radius:
+            22px;
+
+    }
+
+
+    .forecast-table-wrapper {
+
+        border-radius:
+            16px;
+
+    }
+
+
+    .forecast-table {
+
+        min-width:
+            680px;
+
+    }
+
+
+    .forecast-table th {
+
+        padding:
+            14px 12px;
+
+        font-size:
+            9px;
+
+    }
+
+
+    .forecast-table td {
+
+        padding:
+            15px 12px;
+
+    }
+
+
+    .table-weather-icon {
+
+        font-size:
+            27px;
+
+    }
+
+
+    .table-temperature strong {
+
+        font-size:
+            18px;
+
+    }
+
+}
