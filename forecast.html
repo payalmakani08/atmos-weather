@@ -1,31 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Atmos Weather | Forecast</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/style.css">
+    <title>Forecast | Atmos Weather</title>
+
+    <link rel="stylesheet"
+        href="css/style.css">
 
 </head>
 
 <body>
 
-    <!-- Navigation -->
+    <canvas id="weather3D"></canvas>
+
+
+    <!-- NAVBAR -->
+
     <nav class="navbar">
 
-        <a href="index.html" class="logo">
+        <a href="index.html"
+            class="logo">
             🌤️ ATMOS
         </a>
 
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="forecast.html">Forecast</a>
-            <a href="favorites.html">Favorites</a>
-            <a href="about.html">About</a>
-            <a href="settings.html">Settings</a>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="forecast.html">
+                Forecast
+            </a>
+
+            <a href="favorites.html">
+                Favorites
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="settings.html">
+                Settings
+            </a>
+
         </div>
 
     </nav>
@@ -35,50 +60,31 @@
 
         <section class="hero">
 
-            <p class="badge">5-DAY FORECAST</p>
+            <div class="hero-badge">
+                📅 FIVE DAY FORECAST
+            </div>
 
             <h1>
-                Weather <span>Forecast</span>
+                Weather
+                <span>Forecast.</span>
             </h1>
 
-            <p id="forecastSubtitle">
-                Search a city to see its forecast.
+            <p id="forecastLocation">
+                Search a city from the Home page.
             </p>
 
         </section>
 
 
-        <div id="forecastLoading" class="loading hidden">
-            🌎 Loading forecast...
-        </div>
+        <section class="weather-card">
 
+            <div
+                id="forecastList"
+                class="forecast-list">
 
-        <div id="forecastError" class="error hidden"></div>
-
-
-        <section class="forecast-card">
-
-            <h2 id="forecastCity">
-                📍 No City Selected
-            </h2>
-
-            <div id="forecastList">
-
-                <div class="empty-state">
-
-                    <div>🌦️</div>
-
-                    <h3>No forecast yet</h3>
-
-                    <p>
-                        Go to Home and search for a city.
-                    </p>
-
-                    <a href="index.html" class="primary-btn">
-                        🔍 Search City
-                    </a>
-
-                </div>
+                <p class="muted">
+                    Loading forecast...
+                </p>
 
             </div>
 
@@ -88,11 +94,329 @@
 
 
     <footer>
-        <p>© 2026 Atmos Weather</p>
+
+        <p>
+            © 2026 Atmos Weather
+        </p>
+
     </footer>
 
 
-    <script src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+
+    <script src="js/background.js"></script>
+
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            loadForecast
+        );
+
+
+        async function loadForecast() {
+
+            const list =
+                document.getElementById(
+                    "forecastList"
+                );
+
+
+            const saved =
+                localStorage.getItem(
+                    "selectedCity"
+                );
+
+
+            if (!saved) {
+
+                list.innerHTML =
+                    `
+                    <div class="empty-state">
+                        <h2>🌍 No city selected</h2>
+
+                        <p>
+                            Go to the Home page and search
+                            for a city first.
+                        </p>
+
+                        <br>
+
+                        <a
+                            href="index.html"
+                            class="primary-button">
+                            🔍 Search Weather
+                        </a>
+                    </div>
+                    `;
+
+                return;
+
+            }
+
+
+            const location =
+                JSON.parse(saved);
+
+
+            document.getElementById(
+                "forecastLocation"
+            ).textContent =
+                location.name +
+                ", " +
+                (location.country || "");
+
+
+            try {
+
+                const url =
+                    "https://api.open-meteo.com/v1/forecast" +
+
+                    "?latitude=" +
+                    location.latitude +
+
+                    "&longitude=" +
+                    location.longitude +
+
+                    "&daily=" +
+                    "weather_code," +
+                    "temperature_2m_max," +
+                    "temperature_2m_min," +
+                    "sunrise," +
+                    "sunset," +
+                    "precipitation_probability_max" +
+
+                    "&forecast_days=5" +
+
+                    "&timezone=auto";
+
+
+                const response =
+                    await fetch(url);
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Forecast unavailable."
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                renderForecast(
+                    data
+                );
+
+
+            } catch (error) {
+
+                list.innerHTML =
+                    `
+                    <div class="error">
+                        ⚠️
+                        ${error.message}
+                    </div>
+                    `;
+
+            }
+
+        }
+
+
+        function renderForecast(data) {
+
+            const list =
+                document.getElementById(
+                    "forecastList"
+                );
+
+
+            list.innerHTML = "";
+
+
+            for (
+                let i = 0;
+                i < data.daily.time.length;
+                i++
+            ) {
+
+                const date =
+                    new Date(
+                        data.daily.time[i]
+                    );
+
+
+                const day =
+                    date.toLocaleDateString(
+                        [],
+                        {
+                            weekday:
+                                "short"
+                        }
+                    );
+
+
+                const fullDate =
+                    date.toLocaleDateString(
+                        [],
+                        {
+                            day:
+                                "numeric",
+                            month:
+                                "short"
+                        }
+                    );
+
+
+                const code =
+                    data.daily
+                        .weather_code[i];
+
+
+                const max =
+                    Math.round(
+                        data.daily
+                            .temperature_2m_max[i]
+                    );
+
+
+                const min =
+                    Math.round(
+                        data.daily
+                            .temperature_2m_min[i]
+                    );
+
+
+                const rain =
+                    data.daily
+                        .precipitation_probability_max[i];
+
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "forecast-item";
+
+
+                item.innerHTML =
+                    `
+                    <div class="forecast-day">
+
+                        <strong>
+                            ${i === 0
+                                ? "Today"
+                                : day}
+                        </strong>
+
+                        <small>
+                            ${fullDate}
+                        </small>
+
+                    </div>
+
+
+                    <div class="forecast-icon">
+                        ${getIcon(code)}
+                    </div>
+
+
+                    <div class="forecast-condition">
+                        ${getDescription(code)}
+                    </div>
+
+
+                    <div class="forecast-temp">
+
+                        <strong>
+                            ${max}°
+                        </strong>
+
+                        <span>
+                            ${min}°
+                        </span>
+
+                    </div>
+
+
+                    <div class="forecast-rain">
+                        💧 ${rain ?? "--"}%
+                    </div>
+                    `;
+
+
+                list.appendChild(
+                    item
+                );
+
+            }
+
+        }
+
+
+        function getIcon(code) {
+
+            if (code === 0)
+                return "☀️";
+
+            if (code <= 3)
+                return "⛅";
+
+            if (code <= 48)
+                return "🌫️";
+
+            if (code <= 67)
+                return "🌧️";
+
+            if (code <= 77)
+                return "❄️";
+
+            if (code <= 82)
+                return "🌦️";
+
+            if (code <= 86)
+                return "🌨️";
+
+            return "⛈️";
+
+        }
+
+
+        function getDescription(code) {
+
+            if (code === 0)
+                return "Clear";
+
+            if (code <= 3)
+                return "Cloudy";
+
+            if (code <= 48)
+                return "Fog";
+
+            if (code <= 67)
+                return "Rain";
+
+            if (code <= 77)
+                return "Snow";
+
+            if (code <= 86)
+                return "Showers";
+
+            return "Thunderstorm";
+
+        }
+
+    </script>
 
 </body>
+
 </html>
