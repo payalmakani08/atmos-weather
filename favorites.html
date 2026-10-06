@@ -1,30 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Atmos Weather | Favorites</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/style.css">
+    <title>Favorites | Atmos</title>
+
+    <link rel="stylesheet"
+        href="css/style.css">
 
 </head>
 
 <body>
 
+    <canvas id="weather3D"></canvas>
+
+
     <nav class="navbar">
 
-        <a href="index.html" class="logo">
+        <a href="index.html"
+            class="logo">
             🌤️ ATMOS
         </a>
 
         <div class="nav-links">
+
             <a href="index.html">Home</a>
+
             <a href="forecast.html">Forecast</a>
+
             <a href="favorites.html">Favorites</a>
+
             <a href="about.html">About</a>
+
             <a href="settings.html">Settings</a>
+
         </div>
 
     </nav>
@@ -34,20 +48,23 @@
 
         <section class="hero">
 
-            <p class="badge">YOUR CITIES</p>
+            <div class="hero-badge">
+                ❤️ SAVED LOCATIONS
+            </div>
 
             <h1>
-                ❤️ Your <span>Favorites</span>
+                Your
+                <span>Favorites.</span>
             </h1>
 
             <p>
-                Quickly access the cities you check most.
+                Quickly access your favorite cities.
             </p>
 
         </section>
 
 
-        <section class="favorites-card">
+        <section class="weather-card">
 
             <div id="favoritesList"></div>
 
@@ -57,11 +74,192 @@
 
 
     <footer>
-        <p>© 2026 Atmos Weather</p>
+        <p>
+            © 2026 Atmos Weather
+        </p>
     </footer>
 
 
-    <script src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+
+    <script src="js/background.js"></script>
+
+
+    <script>
+
+        const list =
+            document.getElementById(
+                "favoritesList"
+            );
+
+
+        function loadFavorites() {
+
+            const favorites =
+                JSON.parse(
+                    localStorage.getItem(
+                        "favorites"
+                    )
+                ) || [];
+
+
+            list.innerHTML = "";
+
+
+            if (favorites.length === 0) {
+
+                list.innerHTML =
+                    `
+                    <div class="empty-state">
+
+                        <h2>
+                            ❤️ No favorites yet
+                        </h2>
+
+                        <p>
+                            Search for a city on the
+                            Home page and add it to
+                            your favorites.
+                        </p>
+
+                        <br>
+
+                        <a
+                            href="index.html"
+                            class="primary-button">
+                            🔍 Search City
+                        </a>
+
+                    </div>
+                    `;
+
+                return;
+
+            }
+
+
+            favorites.forEach(
+                (city, index) => {
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+                        "favorite-item";
+
+
+                    item.innerHTML =
+                        `
+                        <div>
+
+                            <h2>
+                                📍
+                                ${city.name}
+                            </h2>
+
+                            <p>
+                                ${city.country || ""}
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="weather-actions">
+
+                            <button
+                                class="primary-button"
+                                onclick="openCity(${index})">
+
+                                🌤️ View Weather
+
+                            </button>
+
+
+                            <button
+                                class="secondary-button"
+                                onclick="removeFavorite(${index})">
+
+                                🗑️ Remove
+
+                            </button>
+
+                        </div>
+                        `;
+
+
+                    list.appendChild(
+                        item
+                    );
+
+                }
+            );
+
+        }
+
+
+        function openCity(index) {
+
+            const favorites =
+                JSON.parse(
+                    localStorage.getItem(
+                        "favorites"
+                    )
+                ) || [];
+
+
+            const city =
+                favorites[index];
+
+
+            localStorage.setItem(
+                "selectedCity",
+                JSON.stringify(city)
+            );
+
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        function removeFavorite(index) {
+
+            let favorites =
+                JSON.parse(
+                    localStorage.getItem(
+                        "favorites"
+                    )
+                ) || [];
+
+
+            favorites.splice(
+                index,
+                1
+            );
+
+
+            localStorage.setItem(
+                "favorites",
+                JSON.stringify(
+                    favorites
+                )
+            );
+
+
+            loadFavorites();
+
+        }
+
+
+        loadFavorites();
+
+    </script>
 
 </body>
+
 </html>
