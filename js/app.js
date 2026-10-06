@@ -96,6 +96,15 @@ async function searchWeather(city) {
         }
 
         const location = geoData.results[0];
+        const forecastButton =
+    document.getElementById("forecastButton");
+
+if (forecastButton) {
+
+    forecastButton.href =
+        `forecast.html?city=${encodeURIComponent(location.name)}`;
+
+}
 
 
         // ----------------------------------
