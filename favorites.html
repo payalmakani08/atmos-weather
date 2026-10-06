@@ -1,131 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <title>Atmos Weather | Favorites</title>
 
-<title>Favorites | Atmos</title>
-
-<link rel="stylesheet"
-href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-<nav class="navbar">
+    <nav class="navbar">
 
-<a href="index.html"
-class="logo">
-🌤️ ATMOS
-</a>
+        <a href="index.html" class="logo">
+            🌤️ ATMOS
+        </a>
 
-<div class="nav-links">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="forecast.html">Forecast</a>
+            <a href="favorites.html">Favorites</a>
+            <a href="about.html">About</a>
+            <a href="settings.html">Settings</a>
+        </div>
 
-<a href="index.html">Home</a>
-
-<a href="forecast.html">Forecast</a>
-
-<a href="favorites.html">Favorites</a>
-
-<a href="about.html">About</a>
-
-<a href="settings.html">Settings</a>
-
-</div>
-
-</nav>
+    </nav>
 
 
-<main class="container">
+    <main class="container">
 
-<section class="hero">
+        <section class="hero">
 
-<h1>
-❤️ Your <span>Favorites</span>
-</h1>
+            <p class="badge">YOUR CITIES</p>
 
-<p>
-Your saved cities.
-</p>
+            <h1>
+                ❤️ Your <span>Favorites</span>
+            </h1>
 
-</section>
+            <p>
+                Quickly access the cities you check most.
+            </p>
 
-
-<section class="weather-card">
-
-<div id="favoritesList">
-
-</div>
-
-</section>
-
-</main>
+        </section>
 
 
-<footer>
+        <section class="favorites-card">
 
-<p>
-© 2026 Atmos Weather
-</p>
+            <div id="favoritesList"></div>
 
-</footer>
+        </section>
 
-
-<script>
-
-const list =
-document.getElementById(
-    "favoritesList"
-);
-
-const favorites =
-JSON.parse(
-    localStorage.getItem(
-        "favorites"
-    )
-) || [];
+    </main>
 
 
-if (favorites.length === 0) {
+    <footer>
+        <p>© 2026 Atmos Weather</p>
+    </footer>
 
-    list.innerHTML =
-        "<p>No favorite cities yet.</p>";
 
-} else {
-
-    favorites.forEach(
-        city => {
-
-            const item =
-                document.createElement(
-                    "div"
-                );
-
-            item.style.padding =
-                "15px";
-
-            item.innerHTML = `
-                <h3>📍 ${city}</h3>
-
-                <a href="index.html">
-                    View weather →
-                </a>
-            `;
-
-            list.appendChild(item);
-
-        }
-    );
-
-}
-
-</script>
+    <script src="js/app.js"></script>
 
 </body>
-
 </html>
