@@ -16,6 +16,7 @@ html {
 
 
 body {
+
     min-height: 100vh;
 
     font-family:
@@ -28,19 +29,22 @@ body {
 
     color: #f8fafc;
 
-    background: #061329;
+    background:
+        #061329;
 
     overflow-x: hidden;
 
     isolation: isolate;
+
 }
 
 
 /* ==========================================
-   3D CANVAS
+   WEATHER CANVAS
 ========================================== */
 
 #weather3D {
+
     position: fixed;
 
     inset: 0;
@@ -52,13 +56,15 @@ body {
 
     pointer-events: none;
 
-    display: block;
 }
 
 
-/* Atmospheric overlay */
+/* ==========================================
+   ATMOSPHERE
+========================================== */
 
 body::before {
+
     content: "";
 
     position: fixed;
@@ -70,17 +76,19 @@ body::before {
     pointer-events: none;
 
     background:
+
         radial-gradient(
             circle at 15% 20%,
-            rgba(56, 189, 248, 0.10),
+            rgba(56,189,248,.14),
             transparent 35%
         ),
 
         radial-gradient(
             circle at 85% 25%,
-            rgba(139, 92, 246, 0.12),
+            rgba(139,92,246,.15),
             transparent 35%
         );
+
 }
 
 
@@ -102,14 +110,14 @@ body::before {
 
     justify-content: space-between;
 
-    padding: 16px 5%;
+    padding: 15px 5%;
 
     background:
-        rgba(4, 12, 30, 0.72);
+        rgba(4,12,30,.75);
 
     border-bottom:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(255,255,255,.08);
 
     backdrop-filter:
         blur(18px);
@@ -139,8 +147,6 @@ body::before {
 
     display: flex;
 
-    align-items: center;
-
     gap: 22px;
 
 }
@@ -156,7 +162,7 @@ body::before {
     font-size: 13px;
 
     transition:
-        0.25s ease;
+        .25s ease;
 
 }
 
@@ -166,14 +172,11 @@ body::before {
     color:
         #67e8f9;
 
-    transform:
-        translateY(-1px);
-
 }
 
 
 /* ==========================================
-   MAIN CONTAINER
+   CONTAINER
 ========================================== */
 
 .container {
@@ -182,13 +185,11 @@ body::before {
 
     z-index: 2;
 
-    width: min(
-        1100px,
-        92%
-    );
+    width:
+        min(1100px,92%);
 
     margin:
-        0 auto;
+        auto;
 
     padding:
         65px 0 80px;
@@ -214,20 +215,21 @@ body::before {
 
 .hero-badge {
 
-    display: inline-block;
+    display:
+        inline-block;
 
     padding:
         9px 16px;
 
     border:
         1px solid
-        rgba(103,232,249,0.25);
+        rgba(103,232,249,.25);
 
     border-radius:
         50px;
 
     background:
-        rgba(103,232,249,0.08);
+        rgba(103,232,249,.08);
 
     color:
         #9bdff5;
@@ -250,14 +252,10 @@ body::before {
 .hero h1 {
 
     font-size:
-        clamp(
-            48px,
-            8vw,
-            88px
-        );
+        clamp(48px,8vw,88px);
 
     line-height:
-        0.98;
+        .98;
 
     font-weight:
         900;
@@ -273,7 +271,8 @@ body::before {
 
 .hero h1 span {
 
-    display: block;
+    display:
+        block;
 
     background:
         linear-gradient(
@@ -325,13 +324,10 @@ body::before {
         flex;
 
     width:
-        min(
-            650px,
-            100%
-        );
+        min(650px,100%);
 
     margin:
-        0 auto;
+        auto;
 
     gap:
         10px;
@@ -352,7 +348,7 @@ body::before {
 
     border:
         1px solid
-        rgba(255,255,255,0.12);
+        rgba(255,255,255,.12);
 
     border-radius:
         15px;
@@ -364,7 +360,7 @@ body::before {
         white;
 
     background:
-        rgba(255,255,255,0.07);
+        rgba(255,255,255,.07);
 
     backdrop-filter:
         blur(15px);
@@ -372,20 +368,17 @@ body::before {
     font-size:
         14px;
 
-    transition:
-        0.25s ease;
-
 }
 
 
 .search-form input:focus {
 
     border-color:
-        rgba(103,232,249,0.7);
+        rgba(103,232,249,.7);
 
     box-shadow:
         0 0 25px
-        rgba(103,232,249,0.12);
+        rgba(103,232,249,.12);
 
 }
 
@@ -428,10 +421,10 @@ body::before {
 
     box-shadow:
         0 10px 30px
-        rgba(99,102,241,0.25);
+        rgba(99,102,241,.25);
 
     transition:
-        0.25s ease;
+        .25s ease;
 
 }
 
@@ -440,10 +433,6 @@ body::before {
 
     transform:
         translateY(-2px);
-
-    box-shadow:
-        0 15px 35px
-        rgba(99,102,241,0.35);
 
 }
 
@@ -457,17 +446,17 @@ body::before {
     display:
         flex;
 
-    align-items:
+    justify-content:
         center;
 
-    justify-content:
+    align-items:
         center;
 
     gap:
         10px;
 
     margin-top:
-        22px;
+        20px;
 
     color:
         #9bdff5;
@@ -485,7 +474,7 @@ body::before {
 
     border:
         3px solid
-        rgba(255,255,255,0.15);
+        rgba(255,255,255,.15);
 
     border-top-color:
         #67e8f9;
@@ -494,7 +483,7 @@ body::before {
         50%;
 
     animation:
-        spin 0.8s linear infinite;
+        spin .8s linear infinite;
 
 }
 
@@ -519,7 +508,7 @@ body::before {
         600px;
 
     margin:
-        20px auto 0;
+        20px auto;
 
     padding:
         14px 18px;
@@ -528,11 +517,11 @@ body::before {
         13px;
 
     background:
-        rgba(239,68,68,0.12);
+        rgba(239,68,68,.12);
 
     border:
         1px solid
-        rgba(239,68,68,0.25);
+        rgba(239,68,68,.25);
 
     color:
         #fecaca;
@@ -556,24 +545,21 @@ body::before {
         28px;
 
     background:
-        rgba(16,31,60,0.70);
+        rgba(16,31,60,.70);
 
     border:
         1px solid
-        rgba(255,255,255,0.10);
+        rgba(255,255,255,.10);
 
     backdrop-filter:
         blur(20px);
 
-    -webkit-backdrop-filter:
-        blur(20px);
-
     box-shadow:
         0 30px 80px
-        rgba(0,0,0,0.20);
+        rgba(0,0,0,.20);
 
     animation:
-        slideUp 0.6s ease;
+        slideUp .6s ease;
 
 }
 
@@ -582,8 +568,7 @@ body::before {
 
     from {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translateY(20px);
@@ -592,8 +577,7 @@ body::before {
 
     to {
 
-        opacity:
-            1;
+        opacity: 1;
 
         transform:
             translateY(0);
@@ -640,11 +624,7 @@ body::before {
 .weather-top h2 {
 
     font-size:
-        clamp(
-            25px,
-            5vw,
-            38px
-        );
+        clamp(25px,5vw,38px);
 
     margin-bottom:
         6px;
@@ -663,16 +643,12 @@ body::before {
 .weather-icon {
 
     font-size:
-        clamp(
-            45px,
-            9vw,
-            75px
-        );
+        clamp(45px,9vw,75px);
 
     filter:
         drop-shadow(
             0 8px 20px
-            rgba(255,193,7,0.25)
+            rgba(255,193,7,.25)
         );
 
 }
@@ -689,11 +665,7 @@ body::before {
 .temperature {
 
     font-size:
-        clamp(
-            65px,
-            13vw,
-            110px
-        );
+        clamp(65px,13vw,110px);
 
     font-weight:
         900;
@@ -744,7 +716,7 @@ body::before {
         grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
     gap:
         13px;
@@ -764,11 +736,11 @@ body::before {
         18px;
 
     background:
-        rgba(255,255,255,0.055);
+        rgba(255,255,255,.055);
 
     border:
         1px solid
-        rgba(255,255,255,0.06);
+        rgba(255,255,255,.06);
 
 }
 
@@ -794,9 +766,6 @@ body::before {
 
     font-size:
         17px;
-
-    margin-bottom:
-        5px;
 
 }
 
@@ -864,7 +833,7 @@ body::before {
         pointer;
 
     transition:
-        0.25s ease;
+        .25s ease;
 
 }
 
@@ -890,11 +859,11 @@ body::before {
         white;
 
     background:
-        rgba(255,255,255,0.08);
+        rgba(255,255,255,.08);
 
     border:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(255,255,255,.08);
 
 }
 
@@ -909,15 +878,17 @@ body::before {
 
 
 /* ==========================================
-   SECTIONS
+   COMMON SECTIONS
 ========================================== */
 
 .details-section,
 .chart-container,
-.recent-section {
-
-    position:
-        relative;
+.recent-section,
+.sun-section,
+.moon-section,
+.aqi-section,
+.hourly-section,
+.lifestyle-section {
 
     margin:
         30px 0;
@@ -929,11 +900,11 @@ body::before {
         28px;
 
     background:
-        rgba(15,30,57,0.67);
+        rgba(15,30,57,.67);
 
     border:
         1px solid
-        rgba(255,255,255,0.09);
+        rgba(255,255,255,.09);
 
     backdrop-filter:
         blur(18px);
@@ -984,7 +955,7 @@ body::before {
         grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
     gap:
         15px;
@@ -1001,14 +972,14 @@ body::before {
         20px;
 
     background:
-        rgba(255,255,255,0.055);
+        rgba(255,255,255,.055);
 
     border:
         1px solid
-        rgba(255,255,255,0.07);
+        rgba(255,255,255,.07);
 
     transition:
-        0.3s ease;
+        .3s ease;
 
 }
 
@@ -1019,7 +990,7 @@ body::before {
         translateY(-5px);
 
     background:
-        rgba(103,232,249,0.09);
+        rgba(103,232,249,.09);
 
 }
 
@@ -1041,7 +1012,7 @@ body::before {
 .detail-card p {
 
     color:
-        #9aacC4;
+        #9aacc4;
 
     font-size:
         12px;
@@ -1075,6 +1046,544 @@ body::before {
 
 
 /* ==========================================
+   SUNRISE / SUNSET
+========================================== */
+
+.sun-section {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        150px 1fr 150px;
+
+    align-items:
+        center;
+
+    gap:
+        25px;
+
+}
+
+
+.sun-item {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        14px;
+
+}
+
+
+.sun-icon {
+
+    font-size:
+        35px;
+
+}
+
+
+.sun-item p {
+
+    color:
+        #a5b4cf;
+
+    margin-bottom:
+        7px;
+
+}
+
+
+.sun-item strong {
+
+    font-size:
+        25px;
+
+}
+
+
+.sun-progress {
+
+    position:
+        relative;
+
+    height:
+        40px;
+
+}
+
+
+.sun-progress-line {
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    top:
+        50%;
+
+    height:
+        7px;
+
+    border-radius:
+        20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fbbf24,
+            #67e8f9,
+            #6366f1
+        );
+
+}
+
+
+.sun-position {
+
+    position:
+        absolute;
+
+    top:
+        50%;
+
+    left:
+        50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    font-size:
+        30px;
+
+    filter:
+        drop-shadow(
+            0 0 15px
+            rgba(251,191,36,.8)
+        );
+
+}
+
+
+/* ==========================================
+   MOON
+========================================== */
+
+.moon-section {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+}
+
+
+.moon-phase {
+
+    color:
+        #a5b4cf;
+
+    font-size:
+        16px;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+.moon-times {
+
+    display:
+        flex;
+
+    gap:
+        70px;
+
+}
+
+
+.moon-times div {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        8px;
+
+}
+
+
+.moon-times span {
+
+    color:
+        #94a3b8;
+
+}
+
+
+.moon-times strong {
+
+    font-size:
+        19px;
+
+}
+
+
+.moon-visual {
+
+    font-size:
+        100px;
+
+    animation:
+        moonFloat 5s ease-in-out infinite;
+
+}
+
+
+@keyframes moonFloat {
+
+    0%,100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-10px);
+    }
+
+}
+
+
+/* ==========================================
+   AQI
+========================================== */
+
+.aqi-header {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+}
+
+
+.aqi-header p {
+
+    color:
+        #a5b4cf;
+
+    margin-bottom:
+        10px;
+
+}
+
+
+.aqi-header h2 {
+
+    font-size:
+        30px;
+
+}
+
+
+#aqiLabel {
+
+    color:
+        #fbbf24;
+
+    margin-left:
+        10px;
+
+}
+
+
+.aqi-circle {
+
+    width:
+        90px;
+
+    height:
+        90px;
+
+    border-radius:
+        50%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        8px solid
+        rgba(34,197,94,.6);
+
+    box-shadow:
+        0 0 25px
+        rgba(34,197,94,.2);
+
+}
+
+
+.aqi-circle span {
+
+    font-size:
+        23px;
+
+    font-weight:
+        900;
+
+}
+
+
+.aqi-message {
+
+    margin:
+        20px 0;
+
+    color:
+        #cbd5e1;
+
+}
+
+
+.aqi-bar {
+
+    width:
+        100%;
+
+    height:
+        9px;
+
+    border-radius:
+        20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #22c55e,
+            #eab308,
+            #f97316,
+            #ef4444,
+            #7f1d1d
+        );
+
+}
+
+
+.aqi-bar-fill {
+
+    height:
+        100%;
+
+    width:
+        10%;
+
+    background:
+        white;
+
+    box-shadow:
+        0 0 10px white;
+
+    transition:
+        .7s ease;
+
+}
+
+
+/* ==========================================
+   HOURLY
+========================================== */
+
+.hourly-list {
+
+    display:
+        flex;
+
+    gap:
+        12px;
+
+    overflow-x:
+        auto;
+
+    padding-bottom:
+        10px;
+
+}
+
+
+.hourly-card {
+
+    min-width:
+        105px;
+
+    padding:
+        18px 12px;
+
+    text-align:
+        center;
+
+    border-radius:
+        18px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    transition:
+        .25s ease;
+
+}
+
+
+.hourly-card:hover {
+
+    transform:
+        translateY(-6px);
+
+    background:
+        rgba(103,232,249,.10);
+
+}
+
+
+.hourly-card .time {
+
+    color:
+        #a5b4cf;
+
+    font-size:
+        12px;
+
+}
+
+
+.hourly-card .icon {
+
+    display:
+        block;
+
+    font-size:
+        32px;
+
+    margin:
+        12px 0;
+
+}
+
+
+.hourly-card strong {
+
+    font-size:
+        19px;
+
+}
+
+
+/* ==========================================
+   LIFESTYLE
+========================================== */
+
+.lifestyle-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:
+        14px;
+
+}
+
+
+.lifestyle-card {
+
+    padding:
+        22px;
+
+    border-radius:
+        20px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+}
+
+
+.lifestyle-card span {
+
+    display:
+        block;
+
+    font-size:
+        30px;
+
+    margin-bottom:
+        12px;
+
+}
+
+
+.lifestyle-card p {
+
+    color:
+        #94a3b8;
+
+    font-size:
+        13px;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+.lifestyle-card strong {
+
+    font-size:
+        14px;
+
+}
+
+
+/* ==========================================
    CHART
 ========================================== */
 
@@ -1092,19 +1601,8 @@ body::before {
 }
 
 
-.chart-wrapper canvas {
-
-    width:
-        100% !important;
-
-    height:
-        100% !important;
-
-}
-
-
 /* ==========================================
-   RECENT SEARCHES
+   RECENT
 ========================================== */
 
 .recent-cities {
@@ -1125,10 +1623,10 @@ body::before {
 
     border:
         1px solid
-        rgba(255,255,255,0.09);
+        rgba(255,255,255,.09);
 
     background:
-        rgba(255,255,255,0.055);
+        rgba(255,255,255,.055);
 
     color:
         #dbeafe;
@@ -1141,28 +1639,6 @@ body::before {
 
     cursor:
         pointer;
-
-    transition:
-        0.25s ease;
-
-}
-
-
-.recent-city:hover {
-
-    background:
-        rgba(103,232,249,0.10);
-
-    border-color:
-        rgba(103,232,249,0.3);
-
-}
-
-
-.muted {
-
-    color:
-        #8190a8;
 
 }
 
@@ -1187,7 +1663,7 @@ footer {
 
     border-top:
         1px solid
-        rgba(255,255,255,0.06);
+        rgba(255,255,255,.06);
 
     color:
         #64748b;
@@ -1214,9 +1690,7 @@ footer {
    MOBILE
 ========================================== */
 
-@media (
-    max-width: 700px
-) {
+@media(max-width:700px) {
 
     .navbar {
 
@@ -1284,11 +1758,7 @@ footer {
     .hero h1 {
 
         font-size:
-            clamp(
-                42px,
-                12vw,
-                65px
-            );
+            clamp(42px,12vw,65px);
 
         letter-spacing:
             -2px;
@@ -1334,7 +1804,7 @@ footer {
     .weather-info {
 
         grid-template-columns:
-            repeat(3, 1fr);
+            repeat(3,1fr);
 
         gap:
             7px;
@@ -1368,7 +1838,12 @@ footer {
 
     .details-section,
     .chart-container,
-    .recent-section {
+    .recent-section,
+    .sun-section,
+    .moon-section,
+    .aqi-section,
+    .hourly-section,
+    .lifestyle-section {
 
         padding:
             20px;
@@ -1382,7 +1857,7 @@ footer {
     .details-grid {
 
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2,1fr);
 
         gap:
             10px;
@@ -1406,6 +1881,61 @@ footer {
     }
 
 
+    .sun-section {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            18px;
+
+    }
+
+
+    .sun-progress {
+
+        order:
+            3;
+
+    }
+
+
+    .moon-section {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+        gap:
+            25px;
+
+    }
+
+
+    .moon-times {
+
+        gap:
+            40px;
+
+    }
+       .moon-visual {
+
+        align-self:
+            center;
+
+    }
+
+
+    .lifestyle-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+
     .chart-wrapper {
 
         height:
@@ -1416,9 +1946,7 @@ footer {
 }
 
 
-@media (
-    max-width: 380px
-) {
+@media(max-width:420px) {
 
     .weather-info {
 
@@ -1435,698 +1963,19 @@ footer {
 
     }
 
-    }
-/* ==========================================
-   FORECAST
-========================================== */
 
-.forecast-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-
-.forecast-item {
-
-    display: grid;
-
-    grid-template-columns:
-        1fr
-        80px
-        1.4fr
-        100px
-        90px;
-
-    align-items: center;
-
-    gap: 15px;
-
-    padding: 18px;
-
-    border-radius: 18px;
-
-    background:
-        rgba(255,255,255,0.055);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.07);
-
-    transition:
-        0.25s ease;
-
-}
-
-
-.forecast-item:hover {
-
-    transform:
-        translateX(5px);
-
-    background:
-        rgba(103,232,249,0.08);
-
-}
-
-
-.forecast-day strong {
-
-    display: block;
-
-    font-size: 16px;
-
-}
-
-
-.forecast-day small {
-
-    color:
-        #8190a8;
-
-    display: block;
-
-    margin-top: 5px;
-
-}
-
-
-.forecast-icon {
-
-    font-size: 34px;
-
-    text-align: center;
-
-}
-
-
-.forecast-condition {
-
-    color:
-        #b7c5d9;
-
-}
-
-
-.forecast-temp strong {
-
-    font-size: 21px;
-
-}
-
-
-.forecast-temp span {
-
-    color:
-        #8190a8;
-
-    margin-left: 8px;
-
-}
-
-
-.forecast-rain {
-
-    color:
-        #67e8f9;
-
-    font-size:
-        13px;
-
-}
-
-
-/* ==========================================
-   FAVORITES
-========================================== */
-
-.favorite-item {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    gap:
-        15px;
-
-    padding:
-        20px;
-
-    margin-bottom:
-        12px;
-
-    border-radius:
-        18px;
-
-    background:
-        rgba(255,255,255,0.055);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.07);
-
-}
-
-
-.favorite-item h2 {
-
-    font-size:
-        20px;
-
-    margin-bottom:
-        5px;
-
-}
-
-
-.favorite-item p {
-
-    color:
-        #8190a8;
-
-    font-size:
-        13px;
-
-}
-
-
-.empty-state {
-
-    text-align:
-        center;
-
-    padding:
-        50px 20px;
-
-}
-
-
-.empty-state h2 {
-
-    margin-bottom:
-        10px;
-
-}
-
-
-.empty-state p {
-
-    color:
-        #8190a8;
-
-}
-
-
-/* ==========================================
-   MOBILE FORECAST/FAVORITES
-========================================== */
-
-@media (
-    max-width: 700px
-) {
-
-    .forecast-item {
+    .lifestyle-grid {
 
         grid-template-columns:
-            55px
-            50px
             1fr;
 
     }
 
 
-    .forecast-condition {
+    .moon-times {
 
-        grid-column:
-            3;
-
-    }
-
-
-    .forecast-temp {
-
-        grid-column:
-            1 / 3;
-
-    }
-
-
-    .forecast-rain {
-
-        grid-column:
-            3;
-
-    }
-
-
-    .favorite-item {
-
-        flex-direction:
-            column;
-
-        align-items:
-            flex-start;
-
-    }
-
-}
-/* ==========================================
-   PREMIUM FORECAST TABLE
-========================================== */
-
-.forecast-section {
-
-    margin: 35px auto;
-
-    padding: 28px;
-
-    border-radius: 28px;
-
-    background:
-        rgba(15, 30, 57, 0.72);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.10);
-
-    backdrop-filter:
-        blur(22px);
-
-    -webkit-backdrop-filter:
-        blur(22px);
-
-    box-shadow:
-        0 30px 80px
-        rgba(0,0,0,0.25);
-
-    animation:
-        forecastAppear 0.7s ease;
-
-}
-
-
-@keyframes forecastAppear {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(25px)
-            scale(0.98);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
-    }
-
-}
-
-
-/* ==========================================
-   TABLE WRAPPER
-========================================== */
-
-.forecast-table-wrapper {
-
-    width: 100%;
-
-    overflow-x: auto;
-
-    border-radius: 20px;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.08);
-
-}
-
-
-/* ==========================================
-   TABLE
-========================================== */
-
-.forecast-table {
-
-    width: 100%;
-
-    min-width: 720px;
-
-    border-collapse: collapse;
-
-    color: white;
-
-}
-
-
-/* ==========================================
-   TABLE HEADER
-========================================== */
-
-.forecast-table thead {
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(6,182,212,0.14),
-            rgba(124,58,237,0.14)
-        );
-
-}
-
-
-.forecast-table th {
-
-    padding:
-        17px 15px;
-
-    text-align: left;
-
-    color:
-        #9bdff5;
-
-    font-size:
-        11px;
-
-    text-transform:
-        uppercase;
-
-    letter-spacing:
-        1px;
-
-    font-weight:
-        800;
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,0.10);
-
-}
-
-
-/* ==========================================
-   TABLE ROW
-========================================== */
-
-.forecast-table tbody tr {
-
-    transition:
-        0.25s ease;
-
-}
-
-
-.forecast-table tbody tr:not(:last-child) {
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,0.06);
-
-}
-
-
-.forecast-table tbody tr:hover {
-
-    background:
-        rgba(103,232,249,0.07);
-
-    transform:
-        scale(1.005);
-
-}
-
-
-.forecast-table td {
-
-    padding:
-        19px 15px;
-
-    vertical-align:
-        middle;
-
-}
-
-
-/* ==========================================
-   DAY
-========================================== */
-
-.forecast-day strong {
-
-    display:
-        block;
-
-    font-size:
-        15px;
-
-    color:
-        #ffffff;
-
-}
-
-
-.forecast-day small {
-
-    display:
-        block;
-
-    margin-top:
-        5px;
-
-    color:
-        #8190a8;
-
-    font-size:
-        11px;
-
-}
-
-
-/* ==========================================
-   WEATHER ICON
-========================================== */
-
-.table-weather-icon {
-
-    font-size:
-        32px;
-
-    width:
-        45px;
-
-    text-align:
-        center;
-
-    filter:
-        drop-shadow(
-            0 5px 10px
-            rgba(255,255,255,0.12)
-        );
-
-}
-
-
-/* ==========================================
-   CONDITION
-========================================== */
-
-.condition-text {
-
-    color:
-        #dbeafe;
-
-    font-size:
-        13px;
-
-    font-weight:
-        600;
-
-}
-
-
-/* ==========================================
-   TEMPERATURE
-========================================== */
-
-.table-temperature {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        10px;
-
-}
-
-
-.table-temperature strong {
-
-    font-size:
-        20px;
-
-    color:
-        #ffffff;
-
-}
-
-
-.table-temperature span {
-
-    color:
-        #8190a8;
-
-    font-size:
-        15px;
-
-}
-
-
-/* ==========================================
-   RAIN
-========================================== */
-
-.rain-value {
-
-    display:
-        inline-flex;
-
-    padding:
-        7px 11px;
-
-    border-radius:
-        50px;
-
-    background:
-        rgba(56,189,248,0.10);
-
-    border:
-        1px solid
-        rgba(56,189,248,0.15);
-
-    color:
-        #67e8f9;
-
-    font-size:
-        12px;
-
-    font-weight:
-        700;
-
-}
-
-
-/* ==========================================
-   HUMIDITY
-========================================== */
-
-.humidity-value {
-
-    color:
-        #c4b5fd;
-
-    font-size:
-        13px;
-
-    font-weight:
-        700;
-
-}
-
-
-/* ==========================================
-   BACK BUTTON
-========================================== */
-
-.forecast-back {
-
-    text-align:
-        center;
-
-    margin:
-        30px 0;
-
-}
-
-
-/* ==========================================
-   MOBILE FORECAST
-========================================== */
-
-@media (max-width: 700px) {
-
-    .forecast-section {
-
-        padding:
-            18px;
-
-        border-radius:
-            22px;
-
-    }
-
-
-    .forecast-table-wrapper {
-
-        border-radius:
-            16px;
-
-    }
-
-
-    .forecast-table {
-
-        min-width:
-            680px;
-
-    }
-
-
-    .forecast-table th {
-
-        padding:
-            14px 12px;
-
-        font-size:
-            9px;
-
-    }
-
-
-    .forecast-table td {
-
-        padding:
-            15px 12px;
-
-    }
-
-
-    .table-weather-icon {
-
-        font-size:
-            27px;
-
-    }
-
-
-    .table-temperature strong {
-
-        font-size:
-            18px;
+        gap:
+            25px;
 
     }
 
