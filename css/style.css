@@ -326,3 +326,106 @@ body.dark .day-icon {
 body.dark .empty-state {
   background: var(--surface);
 }
+
+/* ==========================================
+   ATMOS WEATHER - FORCE DARK THEME
+========================================== */
+
+html.dark,
+body.dark {
+  color-scheme: dark;
+  background-color: #07111f !important;
+  color: #edf4ff !important;
+}
+
+body.dark {
+  --text: #edf4ff;
+  --muted: #a8b7cc;
+  --surface: #111f33;
+  --surface-soft: #172840;
+  --border: rgba(255, 255, 255, 0.14);
+}
+
+/* Main page sections and cards */
+body.dark .card,
+body.dark .weather-card,
+body.dark .forecast-card,
+body.dark .settings-card,
+body.dark .hour-item,
+body.dark .day-preview,
+body.dark .favorite-card,
+body.dark .empty-state,
+body.dark .stat-card,
+body.dark .detail-card {
+  background-color: #111f33 !important;
+  color: #edf4ff !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+/* Navigation */
+body.dark nav,
+body.dark .navbar,
+body.dark .site-header {
+  background-color: #091629 !important;
+  color: #edf4ff !important;
+}
+
+/* Headings and text */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark p,
+body.dark label,
+body.dark strong,
+body.dark span,
+body.dark small {
+  color: inherit;
+}
+
+/* Inputs and dropdowns */
+html.dark input,
+html.dark select,
+html.dark textarea,
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background-color: #172840 !important;
+  color: #edf4ff !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #a8b7cc !important;
+}
+
+/* Tables */
+body.dark table {
+  background-color: #111f33 !important;
+  color: #edf4ff !important;
+}
+
+body.dark th,
+body.dark td {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+body.dark th {
+  background-color: #172840 !important;
+}
+
+/* Links */
+body.dark a {
+  color: #8bb8ff;
+}
+
+/* Keep buttons readable */
+body.dark button {
+  color: inherit;
+}
+
+body.dark .primary-button,
+body.dark .button-primary {
+  color: #ffffff !important;
+}
