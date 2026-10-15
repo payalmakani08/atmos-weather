@@ -1,265 +1,39 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>Favorites | Atmos</title>
-
-    <link rel="stylesheet"
-        href="css/style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Favorite Cities | ATMOS Weather</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-
-    <canvas id="weather3D"></canvas>
-
-
-    <nav class="navbar">
-
-        <a href="index.html"
-            class="logo">
-            🌤️ ATMOS
-        </a>
-
-        <div class="nav-links">
-
-            <a href="index.html">Home</a>
-
-            <a href="forecast.html">Forecast</a>
-
-            <a href="favorites.html">Favorites</a>
-
-            <a href="about.html">About</a>
-
-            <a href="settings.html">Settings</a>
-
-        </div>
-
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-icon">☀</span> ATMOS <span class="brand-light">WEATHER</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+    <nav class="nav-links" id="navigation">
+      <a href="index.html">Home</a><a href="forecast.html">Forecast</a>
+      <a class="active" href="favorites.html">Favorites</a><a href="about.html">About</a><a href="settings.html">Settings</a>
     </nav>
-
-
-    <main class="container">
-
-        <section class="hero">
-
-            <div class="hero-badge">
-                ❤️ SAVED LOCATIONS
-            </div>
-
-            <h1>
-                Your
-                <span>Favorites.</span>
-            </h1>
-
-            <p>
-                Quickly access your favorite cities.
-            </p>
-
-        </section>
-
-
-        <section class="weather-card">
-
-            <div id="favoritesList"></div>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-        <p>
-            © 2026 Atmos Weather by Payal Makani
-        </p>
-    </footer>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
-
-    <script src="js/background.js"></script>
-
-
-    <script>
-
-        const list =
-            document.getElementById(
-                "favoritesList"
-            );
-
-
-        function loadFavorites() {
-
-            const favorites =
-                JSON.parse(
-                    localStorage.getItem(
-                        "favorites"
-                    )
-                ) || [];
-
-
-            list.innerHTML = "";
-
-
-            if (favorites.length === 0) {
-
-                list.innerHTML =
-                    `
-                    <div class="empty-state">
-
-                        <h2>
-                            ❤️ No favorites yet
-                        </h2>
-
-                        <p>
-                            Search for a city on the
-                            Home page and add it to
-                            your favorites.
-                        </p>
-
-                        <br>
-
-                        <a
-                            href="index.html"
-                            class="primary-button">
-                            🔍 Search City
-                        </a>
-
-                    </div>
-                    `;
-
-                return;
-
-            }
-
-
-            favorites.forEach(
-                (city, index) => {
-
-                    const item =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    item.className =
-                        "favorite-item";
-
-
-                    item.innerHTML =
-                        `
-                        <div>
-
-                            <h2>
-                                📍
-                                ${city.name}
-                            </h2>
-
-                            <p>
-                                ${city.country || ""}
-                            </p>
-
-                        </div>
-
-
-                        <div
-                            class="weather-actions">
-
-                            <button
-                                class="primary-button"
-                                onclick="openCity(${index})">
-
-                                🌤️ View Weather
-
-                            </button>
-
-
-                            <button
-                                class="secondary-button"
-                                onclick="removeFavorite(${index})">
-
-                                🗑️ Remove
-
-                            </button>
-
-                        </div>
-                        `;
-
-
-                    list.appendChild(
-                        item
-                    );
-
-                }
-            );
-
-        }
-
-
-        function openCity(index) {
-
-            const favorites =
-                JSON.parse(
-                    localStorage.getItem(
-                        "favorites"
-                    )
-                ) || [];
-
-
-            const city =
-                favorites[index];
-
-
-            localStorage.setItem(
-                "selectedCity",
-                JSON.stringify(city)
-            );
-
-
-            window.location.href =
-                "index.html";
-
-        }
-
-
-        function removeFavorite(index) {
-
-            let favorites =
-                JSON.parse(
-                    localStorage.getItem(
-                        "favorites"
-                    )
-                ) || [];
-
-
-            favorites.splice(
-                index,
-                1
-            );
-
-
-            localStorage.setItem(
-                "favorites",
-                JSON.stringify(
-                    favorites
-                )
-            );
-
-
-            loadFavorites();
-
-        }
-
-
-        loadFavorites();
-
-    </script>
-
+  </header>
+
+  <main class="container">
+    <section class="page-intro"><p class="eyebrow">YOUR PLACES</p><h1>Favorite cities</h1><p class="muted">Keep the places you check most often close at hand.</p></section>
+
+    <form class="search-form" id="favoriteSearchForm">
+      <label class="sr-only" for="favoriteCityInput">Add a favorite city</label>
+      <span aria-hidden="true">＋</span>
+      <input id="favoriteCityInput" placeholder="Add a city, e.g. Mumbai" required>
+      <button class="button" type="submit">Add city</button>
+    </form>
+    <p class="status-message" id="favoriteStatus" role="status"></p>
+
+    <section class="section-block"><div class="section-heading"><h2>Your saved places</h2><span class="subtle-tag" id="favoriteCount">0 CITIES</span></div>
+      <div class="favorite-grid" id="favoriteList"></div>
+    </section>
+  </main>
+  <footer class="site-footer"><p>ATMOS WEATHER · Your places, all in one spot.</p></footer>
+  <script src="js/background.js"></script>
+  <script src="js/app.js"></script>
 </body>
-
 </html>
