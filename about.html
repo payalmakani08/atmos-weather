@@ -1,139 +1,46 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>About | Atmos by Payal</title>
-
-    <link rel="stylesheet"
-        href="css/style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About ATMOS Weather</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-
-    <canvas id="weather3D"></canvas>
-
-
-    <nav class="navbar">
-
-        <a href="index.html"
-            class="logo">
-            🌤️ ATMOS
-        </a>
-
-        <div class="nav-links">
-
-            <a href="index.html">Home</a>
-
-            <a href="forecast.html">Forecast</a>
-
-            <a href="favorites.html">Favorites</a>
-
-            <a href="about.html">About</a>
-
-            <a href="settings.html">Settings</a>
-
-        </div>
-
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-icon">☀</span> ATMOS <span class="brand-light">WEATHER</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+    <nav class="nav-links" id="navigation">
+      <a href="index.html">Home</a><a href="forecast.html">Forecast</a>
+      <a href="favorites.html">Favorites</a><a class="active" href="about.html">About</a><a href="settings.html">Settings</a>
     </nav>
+  </header>
 
+  <main class="container">
+    <section class="page-intro"><p class="eyebrow">THE STORY BEHIND THE PROJECT</p><h1>About ATMOS Weather</h1><p class="muted">Weather information, without the clutter.</p></section>
 
-    <main class="container">
+    <section class="card about-card">
+      <div class="about-mark">☀</div>
+      <h2>A simpler way to check the weather.</h2>
+      <p>ATMOS Weather is a weather web application designed to make everyday weather information easy to find and understand. Instead of filling the screen with unnecessary details, it brings the information you need into one clear view.</p>
+      <p>You can check current conditions, look ahead at the coming hours and days, save favorite cities, and adjust display preferences.</p>
+    </section>
 
-        <section class="hero">
+    <section class="section-block">
+      <div class="section-heading"><h2>Built with</h2></div>
+      <div class="feature-grid">
+        <article class="card feature-card"><span class="feature-icon">⌘</span><h3>HTML</h3><p>Organises the pages and weather information.</p></article>
+        <article class="card feature-card"><span class="feature-icon">✳</span><h3>CSS</h3><p>Creates the responsive layout and visual design.</p></article>
+        <article class="card feature-card"><span class="feature-icon">JS</span><h3>JavaScript</h3><p>Fetches weather data and makes the controls work.</p></article>
+        <article class="card feature-card"><span class="feature-icon">☁</span><h3>Open-Meteo</h3><p>Provides weather forecasts and air-quality data.</p></article>
+      </div>
+    </section>
 
-            <div class="hero-badge">
-                🌍 ABOUT ATMOS
-            </div>
+    <section class="card about-card"><h2>Data and privacy</h2><p>Weather information is retrieved from Open-Meteo. Saved cities and preferences are stored in your browser using local storage. Location access is optional and requires your permission.</p><p>Weather forecasts can change, so use official local alerts for important safety decisions.</p><a href="https://open-meteo.com/" target="_blank" rel="noopener" class="text-link">Learn about Open-Meteo →</a></section>
+  </main>
 
-            <h1>
-                About
-                <span>Atmos.</span>
-            </h1>
-
-            <p>
-                A modern weather visualization
-                experience.
-            </p>
-
-        </section>
-
-
-        <section class="weather-card">
-
-            <h2>
-                🌤️ What is Atmos?
-            </h2>
-
-            <br>
-
-            <p>
-                Atmos is a responsive weather
-                application designed to make
-                weather information beautiful,
-                interactive and easy to understand.
-            </p>
-
-            <br>
-
-            <p>
-                Search any city to view current
-                weather conditions, temperature
-                trends, air quality, sunrise,
-                sunset, UV index and more.
-            </p>
-
-            <br>
-
-            <p>
-                Atmos uses the JavaScript Fetch API
-                to retrieve real-time weather data.
-            </p>
-
-            <br>
-
-            <p>
-                The interface is designed to work
-                on phones, tablets and computers.
-            </p>
-
-            <br>
-
-            <h3>
-                🚀 Technologies
-            </h3>
-
-            <br>
-
-            <p>
-                HTML • CSS • JavaScript • Fetch API
-                • Three.js • Chart.js
-            </p>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-
-        <p>
-            © 2026 Atmos Weather by Payal Makani
-        </p>
-
-    </footer>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
-
-    <script src="js/background.js"></script>
-
+  <footer class="site-footer"><p>ATMOS WEATHER · Made with care by Payal.</p></footer>
+  <script src="js/background.js"></script>
 </body>
-
 </html>
