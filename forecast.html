@@ -1,319 +1,78 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Atmos Forecast</title>
-
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
-    <style>
-
-        .forecast-table-wrapper {
-
-            overflow-x: auto;
-
-            border-radius: 20px;
-
-        }
-
-
-        .forecast-table {
-
-            width: 100%;
-
-            border-collapse: collapse;
-
-            min-width: 700px;
-
-        }
-
-
-        .forecast-table th {
-
-            padding: 17px;
-
-            text-align: left;
-
-            color: #8fa2bd;
-
-            font-size: 12px;
-
-            text-transform: uppercase;
-
-            letter-spacing: 1px;
-
-            background:
-                rgba(255,255,255,.04);
-
-        }
-
-
-        .forecast-table td {
-
-            padding: 20px 17px;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,.07);
-
-        }
-
-
-        .forecast-table tr {
-
-            transition: .25s ease;
-
-        }
-
-
-        .forecast-table tbody tr:hover {
-
-            background:
-                rgba(103,232,249,.07);
-
-        }
-
-
-        .forecast-weather {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 12px;
-
-        }
-
-
-        .forecast-weather-icon {
-
-            font-size: 32px;
-
-        }
-
-
-        .forecast-date {
-
-            font-weight: 800;
-
-        }
-
-
-        .forecast-date small {
-
-            display: block;
-
-            margin-top: 5px;
-
-            color: #8190a8;
-
-            font-weight: 400;
-
-        }
-
-
-        .max-temp {
-
-            font-weight: 900;
-
-            font-size: 18px;
-
-        }
-
-
-        .min-temp {
-
-            color: #8190a8;
-
-        }
-
-
-        .rain-chance {
-
-            color: #67e8f9;
-
-        }
-
-
-        @media(max-width:700px) {
-
-            .forecast-table-wrapper {
-
-                margin:
-                    0 -5px;
-
-            }
-
-        }
-
-    </style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#edf5fc">
+  <title>7-Day Forecast | ATMOS Weather</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
-
 <body>
-
-<canvas id="weather3D"></canvas>
-
-
-<header class="navbar">
-
-    <a
-        href="index.html"
-        class="logo"
-    >
-        🌤️ ATMOS
-    </a>
-
-
-    <nav class="nav-links">
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="forecast.html">
-            Forecast
-        </a>
-
-        <a href="favorites.html">
-            Favorites
-        </a>
-
-        <a href="about.html">
-            About
-        </a>
-
-        <a href="settings.html">
-            Settings
-        </a>
-
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-icon">☀</span> ATMOS <span class="brand-light">WEATHER</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+    <nav class="nav-links" id="navigation">
+      <a href="index.html">Home</a>
+      <a class="active" href="forecast.html">Forecast</a>
+      <a href="favorites.html">Favorites</a>
+      <a href="about.html">About</a>
+      <a href="settings.html">Settings</a>
     </nav>
+  </header>
 
-</header>
-
-
-<main class="container">
-
-
-    <section class="hero">
-
-        <div class="hero-badge">
-            📅 7 DAY FORECAST
-        </div>
-
-
-        <h1>
-
-            Weather
-
-            <span>
-                Forecast.
-            </span>
-
-        </h1>
-
-
-        <p id="forecastLocation">
-            Loading location...
-        </p>
-
+  <main class="container">
+    <section class="page-intro">
+      <p class="eyebrow">WEATHER OUTLOOK</p>
+      <h1>Your 7-day forecast</h1>
+      <p class="muted">A simple look at the weather ahead.</p>
     </section>
 
+    <form class="search-form" id="searchForm">
+      <label class="sr-only" for="cityInput">Search city</label>
+      <span aria-hidden="true">⌕</span>
+      <input id="cityInput" type="text" placeholder="Search another city" required>
+      <button class="button" type="submit">Search</button>
+      <button class="button button-secondary" id="locationButton" type="button">◎ My location</button>
+    </form>
 
-    <section class="details-section">
+    <p class="status-message" id="statusMessage" role="status">Loading forecast…</p>
 
-        <div class="section-heading">
-
-            <h2>
-                📅 Extended Forecast
-            </h2>
-
-            <p>
-                Daily weather conditions, temperatures and rain probability.
-            </p>
-
-        </div>
-
-
-        <div class="forecast-table-wrapper">
-
-            <table class="forecast-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Day
-                        </th>
-
-                        <th>
-                            Weather
-                        </th>
-
-                        <th>
-                            Condition
-                        </th>
-
-                        <th>
-                            Temperature
-                        </th>
-
-                        <th>
-                            Rain
-                        </th>
-
-                        <th>
-                            UV
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody
-                    id="forecastTable"
-                ></tbody>
-
-            </table>
-
-        </div>
-
+    <section class="card forecast-summary">
+      <div><p class="eyebrow">FORECAST FOR</p><h2 id="cityName">Your location</h2><p class="muted" id="forecastSummary">Loading forecast information…</p></div>
+      <div class="summary-weather"><span id="summaryIcon">☁</span><strong id="summaryTemp">--°</strong></div>
     </section>
 
+    <section class="section-block">
+      <div class="section-heading"><div><p class="eyebrow">DAY BY DAY</p><h2>Daily forecast</h2></div><span class="subtle-tag">7 DAYS</span></div>
+      <div class="table-wrap card">
+        <table>
+          <thead><tr><th>Day</th><th>Conditions</th><th>High / Low</th><th>Rain chance</th><th>Wind</th></tr></thead>
+          <tbody id="forecastTableBody"><tr><td colspan="5">Loading forecast…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
 
-</main>
+    <section class="section-block">
+      <div class="section-heading"><div><p class="eyebrow">TEMPERATURE</p><h2>Daily highs and lows</h2></div></div>
+      <div class="card chart-card"><div id="temperatureChart" class="temperature-chart"><p class="muted">Loading temperature chart…</p></div></div>
+    </section>
 
+    <section class="section-block">
+      <div class="section-heading"><div><p class="eyebrow">HOUR BY HOUR</p><h2>Upcoming hours</h2></div></div>
+      <div class="table-wrap card">
+        <table>
+          <thead><tr><th>Time</th><th>Conditions</th><th>Temperature</th><th>Rain chance</th><th>Wind</th></tr></thead>
+          <tbody id="hourlyTableBody"><tr><td colspan="5">Loading hourly data…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
 
-<footer>
+    <p class="data-note">Forecast data provided by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Forecasts are estimates and may change.</p>
+  </main>
 
-    © 2026 Atmos Weather by Payal Makani
-
-</footer>
-
-
-<script
-    src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.js"
-></script>
-
-<script src="js/weather3d.js"></script>
-
-<script src="js/forecast.js"></script>
-
-
+  <footer class="site-footer"><p>ATMOS WEATHER · Plan your day with confidence.</p></footer>
+  <script src="js/background.js"></script>
+  <script src="js/forecast.js"></script>
 </body>
-
 </html>
