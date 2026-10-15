@@ -1,29 +1,86 @@
 
-/* ATMOS WEATHER - Theme and Background Controller */
+/* ==========================================
+   ATMOS WEATHER
+   Background, Theme & Navigation Controller
+========================================== */
 
 (function () {
+  "use strict";
+
+  /* ==========================================
+     READ SAVED SETTINGS
+  ========================================== */
+
   function getSettings() {
     try {
-      return JSON.parse(
-        localStorage.getItem("atmosSettings")
-      ) || {};
+      const saved = localStorage.getItem("atmosSettings");
+
+      if (!saved) {
+        return {
+          temperature: "celsius",
+          wind: "kmh",
+          theme: "light"
+        };
+      }
+
+      const settings = JSON.parse(saved);
+
+      return {
+        temperature: "celsius",
+        wind: "kmh",
+        theme: "light",
+        ...settings
+      };
     } catch (error) {
-      return {};
+      return {
+        temperature: "celsius",
+        wind: "kmh",
+        theme: "light"
+      };
     }
   }
+
+  /* ==========================================
+     APPLY LIGHT / DARK MODE
+  ========================================== */
 
   function applyAtmosTheme() {
     const settings = getSettings();
     const isDark = settings.theme === "dark";
 
-    document.documentElement.classList.toggle("dark", isDark);
-    document.body.classList.toggle("dark", isDark);
+    // Apply theme classes to both HTML and BODY.
+    document.documentElement.classList.toggle(
+      "dark",
+      isDark
+    );
 
+    document.body.classList.toggle(
+      "dark",
+      isDark
+    );
+
+    // Tell the browser which color scheme is active.
     document.documentElement.style.colorScheme =
       isDark ? "dark" : "light";
+
+    // Update theme selector if it exists on this page.
+    const themeSelect =
+      document.getElementById("themeSelect");
+
+    if (
+      themeSelect &&
+      themeSelect.value !== settings.theme
+    ) {
+      themeSelect.value = settings.theme;
+    }
   }
 
+  // Make this function available to app.js.
   window.applyAtmosTheme = applyAtmosTheme;
+
+  /* ==========================================
+     WEATHER-BASED BACKGROUNDS
+  ========================================== */
 
   window.setWeatherBackground = function (code) {
     const body = document.body;
@@ -51,24 +108,66 @@
     }
   };
 
-  function start() {
-    applyAtmosTheme();
+  /* ==========================================
+     MOBILE NAVIGATION MENU
+  ========================================== */
 
-    const toggle = document.getElementById("menuToggle");
-    const nav = document.getElementById("navigation");
+  function initNavigation() {
+    const toggle =
+      document.getElementById("menuToggle");
 
-    if (toggle && nav && !toggle.dataset.menuReady) {
-      toggle.dataset.menuReady = "true";
+    const navigation =
+      document.getElementById("navigation");
 
-      toggle.addEventListener("click", function () {
-        nav.classList.toggle("open");
-      });
+    if (!toggle || !navigation) {
+      return;
     }
+
+    // Prevent duplicate click handlers.
+    if (toggle.dataset.atmosMenuReady === "true") {
+      return;
+    }
+
+    toggle.dataset.atmosMenuReady = "true";
+
+    toggle.addEventListener("click", function () {
+      const isOpen = navigation.classList.toggle("open");
+
+      toggle.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+    });
+
+    // Close the mobile menu after choosing a link.
+    navigation.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", function () {
+        navigation.classList.remove("open");
+
+        toggle.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+      });
+    });
+  }
+
+  /* ==========================================
+     INITIALIZE
+  ========================================== */
+
+  function initializeAtmos() {
+    applyAtmosTheme();
+    initNavigation();
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", start);
+    document.addEventListener(
+      "DOMContentLoaded",
+      initializeAtmos
+    );
   } else {
-    start();
+    initializeAtmos();
   }
+
 })();
