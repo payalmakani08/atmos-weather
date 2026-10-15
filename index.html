@@ -1,948 +1,126 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="theme-color"
-        content="#07152f"
-    >
-
-    <title>Atmos Weather</title>
-
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#edf5fc">
+  <meta name="description" content="ATMOS Weather provides current weather, air quality, sunrise, sunset and forecasts.">
+  <title>ATMOS Weather | Your Daily Weather</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
-
 <body>
-
-<!-- ==========================================
-     ANIMATED WEATHER BACKGROUND
-========================================== -->
-
-<canvas id="weather3D"></canvas>
-
-
-<!-- ==========================================
-     NAVBAR
-========================================== -->
-
-<header class="navbar">
-
-    <a
-        href="index.html"
-        class="logo"
-    >
-        🌤️ ATMOS
-    </a>
-
-
-    <nav class="nav-links">
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="forecast.html">
-            Forecast
-        </a>
-
-        <a href="favorites.html">
-            Favorites
-        </a>
-
-        <a href="about.html">
-            About
-        </a>
-
-        <a href="settings.html">
-            Settings
-        </a>
-
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-icon">☀</span> ATMOS <span class="brand-light">WEATHER</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+    <nav class="nav-links" id="navigation">
+      <a class="active" href="index.html">Home</a>
+      <a href="forecast.html">Forecast</a>
+      <a href="favorites.html">Favorites</a>
+      <a href="about.html">About</a>
+      <a href="settings.html">Settings</a>
     </nav>
+  </header>
 
-</header>
-
-
-<!-- ==========================================
-     MAIN
-========================================== -->
-
-<main class="container">
-
-
-    <!-- HERO -->
-
-    <section class="hero">
-
-        <div class="hero-badge">
-            🌍 REAL-TIME WEATHER
-        </div>
-
-
-        <h1>
-
-            Weather,
-
-            <span>
-                Beautifully Simple.
-            </span>
-
-        </h1>
-
-
-        <p>
-            Search any city and explore live weather,
-            air quality, forecasts and atmospheric conditions.
-        </p>
-
-
-        <form
-            id="searchForm"
-            class="search-form"
-        >
-
-            <input
-                type="text"
-                id="cityInput"
-                placeholder="Enter city name..."
-                autocomplete="off"
-                required
-            >
-
-            <button type="submit">
-                🔍 Search
-            </button>
-
-        </form>
-
-
-        <div
-            id="loading"
-            class="loading hidden"
-        >
-
-            <span class="loader"></span>
-
-            <span>
-                Loading weather...
-            </span>
-
-        </div>
-
-
-        <div
-            id="error"
-            class="error hidden"
-        ></div>
-
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow" id="todayLabel">YOUR WEATHER, AT A GLANCE</p>
+        <h1>Weather made simple.</h1>
+        <p class="muted">A little information to help plan your day.</p>
+      </div>
+      <span class="local-time" id="localTime">Checking time…</span>
     </section>
 
+    <form class="search-form" id="searchForm">
+      <label class="sr-only" for="cityInput">Search city</label>
+      <span aria-hidden="true">⌕</span>
+      <input id="cityInput" type="text" placeholder="Search a city, e.g. Delhi" autocomplete="off" required>
+      <button class="button" type="submit">Search</button>
+      <button class="button button-secondary" id="locationButton" type="button">◎ My location</button>
+    </form>
 
-    <!-- ==========================================
-         CURRENT WEATHER
-    =========================================== -->
+    <p class="status-message" id="statusMessage" role="status">Loading weather…</p>
 
-    <section
-        id="weatherCard"
-        class="weather-card hidden"
-    >
-
-        <div class="weather-top">
-
-            <div>
-
-                <div class="mini-title">
-                    CURRENT WEATHER
-                </div>
-
-
-                <h2 id="locationName">
-                    --
-                </h2>
-
-
-                <p id="weatherDescription">
-                    --
-                </p>
-
-            </div>
-
-
-            <div
-                id="weatherIcon"
-                class="weather-icon"
-            >
-                ☀️
-            </div>
-
+    <section class="weather-layout">
+      <article class="card current-card">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">CURRENT WEATHER</p>
+            <h2 id="cityName">Finding your weather…</h2>
+            <p class="muted" id="weatherDate">Please wait</p>
+          </div>
+          <button class="icon-button" id="favoriteButton" type="button" aria-label="Add city to favorites" title="Save city">♡</button>
         </div>
 
-
-        <div class="temperature-box">
-
-            <div class="temperature">
-
-                <span id="temperature">
-                    --
-                </span>
-
-                <sup>°C</sup>
-
-            </div>
-
-
-            <p class="feels-text">
-
-                Feels like
-
-                <strong id="feelsLikeTop">
-                    --
-                </strong>
-
-            </p>
-
+        <div class="current-main">
+          <div>
+            <div class="temperature"><span id="temperature">--</span><span class="degree">°</span></div>
+            <p class="condition" id="condition">Loading conditions</p>
+            <p class="muted small">Feels like <strong id="feelsLike">--°</strong></p>
+          </div>
+          <div class="weather-symbol" id="weatherIcon" aria-hidden="true">☁</div>
         </div>
 
-
-        <div class="weather-info">
-
-
-            <div class="info-card">
-
-                <span>
-                    💧
-                </span>
-
-                <strong id="humidityTop">
-                    --
-                </strong>
-
-                <small>
-                    Humidity
-                </small>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <span>
-                    💨
-                </span>
-
-                <strong id="windTop">
-                    --
-                </strong>
-
-                <small id="windDirectionTop">
-                    Wind
-                </small>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <span>
-                    🌡️
-                </span>
-
-                <strong id="feelsTop">
-                    --
-                </strong>
-
-                <small>
-                    Feels Like
-                </small>
-
-            </div>
-
+        <div class="min-max">
+          <span>H: <strong id="highTemp">--°</strong></span>
+          <span>L: <strong id="lowTemp">--°</strong></span>
         </div>
+      </article>
 
-
-        <div class="weather-actions">
-
-            <button
-                id="favoriteButton"
-                class="secondary-button"
-                type="button"
-            >
-                ❤️ Add to Favorites
-            </button>
-
-
-            <a
-                id="forecastButton"
-                class="primary-button"
-                href="forecast.html"
-            >
-                📅 View Forecast
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- ==========================================
-         AIR QUALITY
-    =========================================== -->
-
-    <section
-        id="aqiSection"
-        class="aqi-section hidden"
-    >
-
-        <div class="aqi-header">
-
-            <div>
-
-                <p>
-                    🌿 Air Quality
-                </p>
-
-                <h2>
-
-                    <span id="aqiNumber">
-                        --
-                    </span>
-
-                    <span id="aqiLabel">
-                        Loading...
-                    </span>
-
-                </h2>
-
-            </div>
-
-
-            <div class="aqi-circle">
-
-                <span id="aqiCircleValue">
-                    --
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <p
-            class="aqi-message"
-            id="aqiMessage"
-        >
-            Checking air quality...
-        </p>
-
-
-        <div class="aqi-bar">
-
-            <div
-                id="aqiBarFill"
-                class="aqi-bar-fill"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ==========================================
-         WEATHER DETAILS
-    =========================================== -->
-
-    <section
-        id="detailsSection"
-        class="details-section hidden"
-    >
-
+      <article class="card details-card">
         <div class="section-heading">
-
-            <h2>
-                🌍 Weather Details
-            </h2>
-
-            <p>
-                Everything you need to know about today's conditions.
-            </p>
-
+          <h2>Today's details</h2>
+          <span class="subtle-tag">LIVE DATA</span>
         </div>
-
-
-        <div class="details-grid">
-
-
-            <div class="detail-card">
-
-                <span class="detail-icon">
-                    ☀️
-                </span>
-
-                <p>
-                    UV Index
-                </p>
-
-                <h3 id="uvValue">
-                    --
-                </h3>
-
-                <small id="uvStatus">
-                    --
-                </small>
-
-            </div>
-
-
-            <div class="detail-card">
-
-                <span class="detail-icon">
-                    🌡️
-                </span>
-
-                <p>
-                    Feels Like
-                </p>
-
-                <h3 id="feelsLike">
-                    --°
-                </h3>
-
-                <small>
-                    Apparent temperature
-                </small>
-
-            </div>
-
-
-            <div class="detail-card">
-
-                <span class="detail-icon">
-                    💧
-                </span>
-
-                <p>
-                    Humidity
-                </p>
-
-                <h3 id="humidityValue">
-                    --%
-                </h3>
-
-                <small>
-                    Relative humidity
-                </small>
-
-            </div>
-
-
-            <div class="detail-card">
-
-                <span class="detail-icon">
-                    💨
-                </span>
-
-                <p>
-                    Wind
-                </p>
-
-                <h3 id="windValue">
-                    -- km/h
-                </h3>
-
-                <small id="windDirection">
-                    --
-                </small>
-
-            </div>
-
-
-            <div class="detail-card">
-
-                <span class="detail-icon">
-                    🧭
-                </span>
-
-                <p>
-                    Pressure
-                </p>
-
-                <h3 id="pressureValue">
-                    -- hPa
-                </h3>
-
-                <small>
-                    Atmospheric pressure
-                </small>
-
-            </div>
-
-
-            <div class="detail-card">
-
-                <span class="detail-icon">
-                    👁️
-                </span>
-
-                <p>
-                    Visibility
-                </p>
-
-                <h3 id="visibilityValue">
-                    -- km
-                </h3>
-
-                <small>
-                    Current visibility
-                </small>
-
-            </div>
-
-
-            <div class="detail-card">
-
-                <span class="detail-icon">
-                    🌅
-                </span>
-
-                <p>
-                    Sunrise
-                </p>
-
-                <h3 id="sunriseValue">
-                    --
-                </h3>
-
-                <small>
-                    Today's sunrise
-                </small>
-
-            </div>
-
-
-            <div class="detail-card">
-
-                <span class="detail-icon">
-                    🌇
-                </span>
-
-                <p>
-                    Sunset
-                </p>
-
-                <h3 id="sunsetValue">
-                    --
-                </h3>
-
-                <small>
-                    Today's sunset
-                </small>
-
-            </div>
-
-
+        <div class="detail-grid">
+          <div class="detail-item"><span>Humidity</span><strong id="humidity">--%</strong><small>Air moisture</small></div>
+          <div class="detail-item"><span>Wind speed</span><strong id="windSpeed">-- km/h</strong><small>Near the surface</small></div>
+          <div class="detail-item"><span>Feels like</span><strong id="detailFeelsLike">--°</strong><small>Perceived temperature</small></div>
+          <div class="detail-item"><span>UV index</span><strong id="uvIndex">--</strong><small>Sun exposure</small></div>
+          <div class="detail-item"><span>Sunrise</span><strong id="sunrise">--:--</strong><small>Local time</small></div>
+          <div class="detail-item"><span>Sunset</span><strong id="sunset">--:--</strong><small>Local time</small></div>
+          <div class="detail-item"><span>Visibility</span><strong id="visibility">-- km</strong><small>Viewing distance</small></div>
+          <div class="detail-item"><span>Air quality</span><strong id="airQuality">--</strong><small id="airQualityNote">US AQI</small></div>
         </div>
-
+      </article>
     </section>
 
-
-    <!-- ==========================================
-         SUN
-    =========================================== -->
-
-    <section
-        id="sunSection"
-        class="sun-section hidden"
-    >
-
-        <div class="sun-item">
-
-            <span class="sun-icon">
-                🌅
-            </span>
-
-            <div>
-
-                <p>
-                    Sunrise
-                </p>
-
-                <strong id="sunriseLarge">
-                    --
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="sun-progress">
-
-            <div class="sun-progress-line"></div>
-
-            <div
-                id="sunPosition"
-                class="sun-position"
-            >
-                ☀️
-            </div>
-
-        </div>
-
-
-        <div class="sun-item sunset">
-
-            <span class="sun-icon">
-                🌇
-            </span>
-
-            <div>
-
-                <p>
-                    Sunset
-                </p>
-
-                <strong id="sunsetLarge">
-                    --
-                </strong>
-
-            </div>
-
-        </div>
-
+    <section class="section-block">
+      <div class="section-heading">
+        <div><p class="eyebrow">COMING UP</p><h2>Next 24 hours</h2></div>
+        <a class="text-link" href="forecast.html">Full forecast →</a>
+      </div>
+      <div class="hourly-list" id="hourlyForecast">
+        <p class="muted">Loading hourly forecast…</p>
+      </div>
     </section>
 
-
-    <!-- ==========================================
-         MOON
-    =========================================== -->
-
-    <section
-        id="moonSection"
-        class="moon-section hidden"
-    >
-
-        <div class="moon-content">
-
-            <p
-                class="moon-phase"
-                id="moonPhase"
-            >
-                🌙 Moon Phase
-            </p>
-
-
-            <div class="moon-times">
-
-                <div>
-
-                    <span>
-                        Moonrise
-                    </span>
-
-                    <strong id="moonrise">
-                        --
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span>
-                        Moonset
-                    </span>
-
-                    <strong id="moonset">
-                        --
-                    </strong>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div
-            id="moonVisual"
-            class="moon-visual"
-        >
-            🌕
-        </div>
-
+    <section class="section-block">
+      <div class="section-heading">
+        <div><p class="eyebrow">PLAN AHEAD</p><h2>The next 7 days</h2></div>
+        <a class="text-link" href="forecast.html">View details →</a>
+      </div>
+      <div class="weekly-preview" id="weeklyPreview">
+        <p class="muted">Loading daily forecast…</p>
+      </div>
     </section>
 
-
-    <!-- ==========================================
-         HOURLY
-    =========================================== -->
-
-    <section
-        id="hourlySection"
-        class="hourly-section hidden"
-    >
-
-        <div class="section-heading">
-
-            <h2>
-                ⏰ Hourly Forecast
-            </h2>
-
-            <p>
-                Temperature throughout the day.
-            </p>
-
-        </div>
-
-
-        <div
-            id="hourlyForecast"
-            class="hourly-list"
-        ></div>
-
+    <section class="tip-card">
+      <div class="tip-icon">✦</div>
+      <div><p class="eyebrow">A SMALL DAILY TIP</p><h2 id="tipTitle">Make the most of your day</h2><p id="weatherTip">Your weather tip will appear here.</p></div>
     </section>
 
-
-    <!-- ==========================================
-         TEMPERATURE CHART
-    =========================================== -->
-
-    <section
-        id="chartSection"
-        class="chart-container hidden"
-    >
-
-        <div class="section-heading">
-
-            <h2>
-                📈 Temperature Trend
-            </h2>
-
-            <p>
-                Temperature for the next 24 hours.
-            </p>
-
-        </div>
-
-
-        <div class="chart-wrapper">
-
-            <canvas
-                id="temperatureChart"
-            ></canvas>
-
-        </div>
-
-    </section>
-
-
-    <!-- ==========================================
-         LIFESTYLE
-    =========================================== -->
-
-    <section
-        id="lifestyleSection"
-        class="lifestyle-section hidden"
-    >
-
-        <div class="section-heading">
-
-            <h2>
-                💡 Lifestyle Tips
-            </h2>
-
-            <p>
-                Helpful recommendations based on today's weather.
-            </p>
-
-        </div>
-
-
-        <div class="lifestyle-grid">
-
-
-            <div class="lifestyle-card">
-
-                <span>
-                    🏃
-                </span>
-
-                <p>
-                    Outdoor Activity
-                </p>
-
-                <strong id="outdoorTip">
-                    Checking...
-                </strong>
-
-            </div>
-
-
-            <div class="lifestyle-card">
-
-                <span>
-                    🚗
-                </span>
-
-                <p>
-                    Car Washing
-                </p>
-
-                <strong id="carWashTip">
-                    Checking...
-                </strong>
-
-            </div>
-
-
-            <div class="lifestyle-card">
-
-                <span>
-                    🏋️
-                </span>
-
-                <p>
-                    Workout
-                </p>
-
-                <strong id="workoutTip">
-                    Checking...
-                </strong>
-
-            </div>
-
-
-            <div class="lifestyle-card">
-
-                <span>
-                    🦟
-                </span>
-
-                <p>
-                    Mosquito Risk
-                </p>
-
-                <strong id="mosquitoTip">
-                    Checking...
-                </strong>
-
-            </div>
-
-
-            <div class="lifestyle-card">
-
-                <span>
-                    🚘
-                </span>
-
-                <p>
-                    Travel
-                </p>
-
-                <strong id="travelTip">
-                    Checking...
-                </strong>
-
-            </div>
-
-
-            <div class="lifestyle-card">
-
-                <span>
-                    🌳
-                </span>
-
-                <p>
-                    Outdoor Air
-                </p>
-
-                <strong id="airTip">
-                    Checking...
-                </strong>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-    <!-- ==========================================
-         RECENT SEARCHES
-    =========================================== -->
-
-    <section
-        id="recentSection"
-        class="recent-section hidden"
-    >
-
-        <div class="section-heading">
-
-            <h2>
-                🕘 Recent Searches
-            </h2>
-
-        </div>
-
-
-        <div
-            id="recentCities"
-            class="recent-cities"
-        ></div>
-
-    </section>
-
-
-</main>
-
-
-<!-- ==========================================
-     FOOTER
-========================================== -->
-
-<footer>
-
-    © 2026 Atmos Weather by Payal Makani
-    •
-    Built with Fetch API
-    •
-    Open-Meteo
-
-</footer>
-
-
-<!-- ==========================================
-     LIBRARIES
-========================================== -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
-></script>
-
-
-<script
-    src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.js"
-></script>
-
-
-<script src="js/weather3d.js"></script>
-
-<script src="js/app.js"></script>
-
-
+    <p class="data-note">Weather data provided by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Air quality is shown when data is available.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>ATMOS WEATHER <span>·</span> Weather information for everyday life.</p>
+    <p>Made with care by Payal.</p>
+  </footer>
+
+  <script src="js/background.js"></script>
+  <script src="js/weather3d.js"></script>
+  <script src="js/app.js"></script>
 </body>
-
-    </html>
+</html>
