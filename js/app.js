@@ -66,15 +66,27 @@ function preferences() {
   };
 }
 
-function applyTheme() {
-  const theme = preferences().theme;
-  document.body.classList.toggle("dark", theme === "dark");
 
-  // Keep the theme consistent with background.js if available.
-  if (typeof window.applyAtmosTheme === "function") {
-    window.applyAtmosTheme();
+function applyTheme() {
+  let settings = {};
+
+  try {
+    settings = JSON.parse(
+      localStorage.getItem("atmosSettings") || "{}"
+    );
+  } catch (error) {
+    settings = {};
   }
+
+  const isDark = settings.theme === "dark";
+
+  document.documentElement.classList.toggle("dark", isDark);
+  document.body.classList.toggle("dark", isDark);
+
+  document.documentElement.style.colorScheme =
+    isDark ? "dark" : "light";
 }
+
 
 function temperature(value) {
   if (value == null || !Number.isFinite(Number(value))) {
