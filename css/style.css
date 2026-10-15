@@ -299,46 +299,21 @@ body.weather-cloudy { background-image: linear-gradient(145deg, rgba(163, 185, 2
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
 
-/* Dark mode improvements */
-body.dark input,
-body.dark select,
-body.dark textarea {
-  color: var(--text);
-  background-color: var(--surface-soft);
-  border-color: var(--border);
-}
-
-body.dark .search-form input {
-  background: transparent;
-}
-
-body.dark .nav-links a.active {
-  background: var(--surface-soft);
-  color: var(--primary);
-}
-
-body.dark .weather-symbol,
-body.dark .hour-icon,
-body.dark .day-icon {
-  color: var(--text);
-}
-
-body.dark .empty-state {
-  background: var(--surface);
-}
 
 /* ==========================================
-   ATMOS WEATHER - FORCE DARK THEME
+   ATMOS WEATHER - DARK MODE FIX
 ========================================== */
 
-html.dark,
-body.dark {
-  color-scheme: dark;
-  background-color: #07111f !important;
-  color: #edf4ff !important;
+html.dark {
+  color-scheme: dark !important;
+  background: #07111f !important;
 }
 
 body.dark {
+  color-scheme: dark !important;
+  background: #07111f !important;
+  color: #edf4ff !important;
+
   --text: #edf4ff;
   --muted: #a8b7cc;
   --surface: #111f33;
@@ -346,31 +321,39 @@ body.dark {
   --border: rgba(255, 255, 255, 0.14);
 }
 
-/* Main page sections and cards */
+/* Main page background */
+html.dark body,
+body.dark main,
+body.dark .container {
+  color: #edf4ff;
+}
+
+/* Header and footer */
+body.dark .site-header,
+body.dark .site-footer {
+  background: #091629 !important;
+  color: #edf4ff !important;
+  border-color: #26364c !important;
+}
+
+/* Cards and panels */
 body.dark .card,
+body.dark .settings-card,
 body.dark .weather-card,
 body.dark .forecast-card,
-body.dark .settings-card,
+body.dark .favorite-card,
 body.dark .hour-item,
 body.dark .day-preview,
-body.dark .favorite-card,
 body.dark .empty-state,
 body.dark .stat-card,
 body.dark .detail-card {
-  background-color: #111f33 !important;
+  background: #111f33 !important;
   color: #edf4ff !important;
-  border-color: rgba(255, 255, 255, 0.14) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
-/* Navigation */
-body.dark nav,
-body.dark .navbar,
-body.dark .site-header {
-  background-color: #091629 !important;
-  color: #edf4ff !important;
-}
-
-/* Headings and text */
+/* Headings and normal text */
 body.dark h1,
 body.dark h2,
 body.dark h3,
@@ -378,21 +361,23 @@ body.dark h4,
 body.dark p,
 body.dark label,
 body.dark strong,
-body.dark span,
-body.dark small {
-  color: inherit;
+body.dark .muted,
+body.dark .eyebrow,
+body.dark .data-note,
+body.dark .setting-row {
+  color: #edf4ff !important;
 }
 
-/* Inputs and dropdowns */
+/* Form fields */
 html.dark input,
 html.dark select,
 html.dark textarea,
 body.dark input,
 body.dark select,
 body.dark textarea {
-  background-color: #172840 !important;
+  background: #172840 !important;
   color: #edf4ff !important;
-  border-color: rgba(255, 255, 255, 0.18) !important;
+  border: 1px solid #40516b !important;
 }
 
 body.dark input::placeholder,
@@ -400,32 +385,55 @@ body.dark textarea::placeholder {
   color: #a8b7cc !important;
 }
 
-/* Tables */
-body.dark table {
-  background-color: #111f33 !important;
+/* Navigation */
+body.dark .nav-links {
+  background: #091629;
+}
+
+body.dark .nav-links a {
+  color: #edf4ff !important;
+}
+
+body.dark .nav-links a.active {
+  background: #20334d !important;
+  color: #93c5fd !important;
+}
+
+/* Buttons */
+body.dark .button-secondary {
+  background: #20334d !important;
+  color: #edf4ff !important;
+  border-color: #40516b !important;
+}
+
+body.dark .primary-button,
+body.dark .button:not(.button-secondary) {
+  color: #ffffff;
+}
+
+/* Forecast tables */
+body.dark table,
+body.dark thead,
+body.dark tbody,
+body.dark tr {
+  background: #111f33 !important;
   color: #edf4ff !important;
 }
 
 body.dark th,
 body.dark td {
-  border-color: rgba(255, 255, 255, 0.14) !important;
+  border-color: #34465f !important;
 }
 
 body.dark th {
-  background-color: #172840 !important;
+  background: #20334d !important;
 }
 
 /* Links */
 body.dark a {
-  color: #8bb8ff;
+  color: #93c5fd;
 }
 
-/* Keep buttons readable */
-body.dark button {
-  color: inherit;
-}
-
-body.dark .primary-button,
-body.dark .button-primary {
-  color: #ffffff !important;
+body.dark .brand {
+  color: #edf4ff !important;
 }
